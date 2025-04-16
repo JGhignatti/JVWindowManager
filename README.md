@@ -27,3 +27,33 @@ _⏹️ = Supports stage manager with + <kbd>shift</kbd>_
 Shortcuts that support Stage Manager will leave space on the left side of the screen.
 
 To trigger the Stage Manager shortcut, hold <kbd>shift</kbd> with the other modifiers.
+
+## Settings
+
+### Gap size
+
+Configures both padding for the screen frame and gap between windows.
+
+|||
+|-|-|
+| Default value | 16px |
+| Range | 0...50px |
+
+### Stage manager size
+
+Configures the left margin left on screen for the stange manager.
+
+|||
+|-|-|
+| Default value | 180px |
+| Range | 0...250px |
+
+### Peek size
+
+Configures the space left to peek the window behind.
+
+|||
+|-|-|
+| Default value | 48px |
+| Range | 0...100px |
+
