@@ -5,7 +5,8 @@
 //  Created by João Ghignatti on 15/04/25.
 //
 
-import Foundation
+import AppKit
+import HotKey
 
 final class SettingsManager {
     static let shared = SettingsManager()
@@ -46,6 +47,32 @@ final class SettingsManager {
         set {
             if newValue >= 0 {
                 defaults.set(newValue, forKey: SettingKey.peekSize)
+            }
+        }
+    }
+
+    var defaultLayoutShortcutPairs: [LayoutShortcutPair] {
+        get {
+            if let data = defaults.data(
+                forKey: SettingKey.defaultLayoutShortcutPairs
+            ),
+                let decoded = try? JSONDecoder().decode(
+                    [LayoutShortcutPair].self,
+                    from: data
+                )
+            {
+                return decoded
+            }
+
+            return Layout.allCases.map {
+                .init(layout: $0, shortcut: $0.defaultShortcut)
+            }
+        }
+        set {
+            if let data = try? JSONEncoder().encode(newValue) {
+                defaults.set(data, forKey: SettingKey.defaultLayoutShortcutPairs)
+                
+                HotKeysManager.shared.registerAll()
             }
         }
     }

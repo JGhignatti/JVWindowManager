@@ -8,29 +8,38 @@
 import SwiftUI
 
 struct ShortcutsView: View {
+    @State private var defaultLayoutShortcutPairs: [LayoutShortcutPair] =
+        SettingsManager.shared.defaultLayoutShortcutPairs
+
     var body: some View {
         ScrollView {
             GroupBox(
-                label: Text("Shortcuts").padding(.bottom, 4)
+                label: Text("Default layouts")
+                    .padding(.bottom, 4)
                     .foregroundColor(.secondary)
             ) {
                 VStack {
-                    ForEach(Layout.allCases) { layout in
-                        HStack {
-                            Text("\(layout.name)")
-                            Spacer()
-                            Text("\(layout.modifiers) \(layout.key)")
-                        }
+                    ForEach(defaultLayoutShortcutPairs.indices, id: \.self) {
+                        index in
+                        LayoutShortcutRowView(
+                            layout: defaultLayoutShortcutPairs[index].layout,
+                            shortcut: $defaultLayoutShortcutPairs[index]
+                                .shortcut,
+                            showDivider: index != defaultLayoutShortcutPairs
+                                .count - 1
+                        ) { updatedShortcut in
+                            defaultLayoutShortcutPairs[index].shortcut =
+                                updatedShortcut
 
-                        if layout != Layout.allCases.last {
-                            Divider()
+                            SettingsManager.shared.defaultLayoutShortcutPairs =
+                                defaultLayoutShortcutPairs
                         }
                     }
-                }.padding(4)
+                }
+                .padding(4)
             }
         }
-        .contentMargins(.horizontal, 32, for: .scrollContent)
-        .contentMargins(.vertical, 16, for: .scrollContent)
+        .contentMargins(.all, 16, for: .scrollContent)
     }
 }
 

@@ -8,7 +8,7 @@
 import HotKey
 import SwiftUI
 
-enum Layout: String, CaseIterable, Identifiable {
+enum Layout: String, CaseIterable, Identifiable, Codable {
     case fullScreen
 
     case topHalf
@@ -37,39 +37,6 @@ enum Layout: String, CaseIterable, Identifiable {
 
     var id: String {
         rawValue
-    }
-
-    var hotKey: HotKey {
-        return HotKey(
-            key: key,
-            modifiers: modifiers,
-            keyDownHandler: {
-                LayoutManager.shared.trigger(self)
-            }
-        )
-    }
-
-    var key: Key {
-        switch self {
-        case .fullScreen, .smFullScreen:
-            return .return
-        case .topHalf, .smTopHalf:
-            return .upArrow
-        case .bottomHalf, .smBottomHalf:
-            return .downArrow
-        case .leftHalf, .smLeftHalf:
-            return .leftArrow
-        case .rightHalf, .smRightHalf:
-            return .rightArrow
-        case .vCenterHalf, .smVCenterHalf:
-            return .v
-        case .hCenterHalf, .smHCenterHalf:
-            return .h
-        case .peekLeft, .smPeekLeft:
-            return .o
-        case .peekRight, .smPeekRight:
-            return .p
-        }
     }
 
     var modifiers: NSEvent.ModifierFlags {
@@ -115,14 +82,41 @@ enum Layout: String, CaseIterable, Identifiable {
         case .smRightHalf:
             return "Stage Manager Right Half"
         case .smVCenterHalf:
-            return "Stage Manager V Center Half"
+            return "Stage Manager V. Center Half"
         case .smHCenterHalf:
-            return "Stage Manager H Center Half"
+            return "Stage Manager H. Center Half"
         case .smPeekLeft:
             return "Stage Manager Peek Left"
         case .smPeekRight:
             return "Stage Manager Peek Right"
         }
+    }
+    
+    var defaultShortcut: KeyboardShortcut {
+        var defaultKey: Key {
+            switch self {
+            case .fullScreen, .smFullScreen:
+                return .return
+            case .topHalf, .smTopHalf:
+                return .upArrow
+            case .bottomHalf, .smBottomHalf:
+                return .downArrow
+            case .leftHalf, .smLeftHalf:
+                return .leftArrow
+            case .rightHalf, .smRightHalf:
+                return .rightArrow
+            case .vCenterHalf, .smVCenterHalf:
+                return .v
+            case .hCenterHalf, .smHCenterHalf:
+                return .h
+            case .peekLeft, .smPeekLeft:
+                return .o
+            case .peekRight, .smPeekRight:
+                return .p
+            }
+        }
+        
+        return .init(key: defaultKey, modifiers: modifiers)
     }
 
     func inset(from rect: CGRect) -> CGRect {
