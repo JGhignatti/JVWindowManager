@@ -170,17 +170,17 @@ enum Layout: String, CaseIterable, Identifiable, Codable {
         case .peekLeft:
             return rect.insetBy(
                 top: gap,
-                right: peekSize + gap,
+                right: gap,
                 bottom: gap,
-                left: gap
+                left: peekSize + gap
             )
 
         case .peekRight:
             return rect.insetBy(
                 top: gap,
-                right: gap,
+                right: peekSize + gap,
                 bottom: gap,
-                left: peekSize + gap
+                left: gap
             )
 
         case .smFullScreen:

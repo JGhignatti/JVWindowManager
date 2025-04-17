@@ -12,7 +12,6 @@ final class LayoutManager {
 
     private var windowElement: AXUIElement? {
         guard let app = NSWorkspace.shared.frontmostApplication else {
-            // No frontmost app found
             return nil
         }
         let appElement = AXUIElementCreateApplication(app.processIdentifier)
@@ -25,6 +24,38 @@ final class LayoutManager {
         let window = unsafeBitCast(rawWindow, to: AXUIElement.self)
 
         return window
+    }
+
+    private var screen: NSScreen? {
+        guard
+            let window = windowElement,
+            let positionRaw = window.getAttributeValue(for: .position),
+            CFGetTypeID(positionRaw) == AXValueGetTypeID(),
+            let sizeRaw = window.getAttributeValue(for: .size),
+            CFGetTypeID(sizeRaw) == AXValueGetTypeID()
+        else {
+            return nil
+        }
+
+        var position = CGPoint.zero
+        var size = CGSize.zero
+
+        AXValueGetValue(positionRaw as! AXValue, .cgPoint, &position)
+        AXValueGetValue(sizeRaw as! AXValue, .cgSize, &size)
+
+        let axFrame = CGRect(origin: position, size: size)
+        let windowFrame = flipAXFrameToNSScreenCoordinates(axFrame)
+
+        return NSScreen.screens.max(by: { a, b in
+            a.visibleFrame.intersection(windowFrame).area
+                < b.visibleFrame.intersection(windowFrame).area
+        })
+    }
+
+    private var screensUnionFrame: CGRect {
+        NSScreen.screens.reduce(CGRect.zero) {
+            $0.union($1.frame)
+        }
     }
 
     private init() {}
@@ -42,21 +73,38 @@ final class LayoutManager {
     }
 
     private func applyLayout(_ layout: Layout) {
-        guard let windowElement = windowElement, let screen = NSScreen.main
+        guard let windowElement = windowElement, let screen = screen
         else {
             return
         }
 
-        let screenFrame = screen.visibleFrameAXCompatible
-        var finalRect = layout.inset(from: screenFrame)
+        let targetFrame = layout.inset(from: screen.visibleFrame)
+        var finalFrame = flipCGRectToAXCoordinates(targetFrame)
 
         let _ = windowElement.setAttributeValue(
-            AXValueCreate(.cgPoint, &finalRect.origin)!,
+            AXValueCreate(.cgPoint, &finalFrame.origin)!,
             for: .position
         )
         let _ = windowElement.setAttributeValue(
-            AXValueCreate(.cgSize, &finalRect.size)!,
+            AXValueCreate(.cgSize, &finalFrame.size)!,
             for: .size
         )
+    }
+
+    private func flipAXFrameToNSScreenCoordinates(_ axFrame: CGRect) -> CGRect {
+        let unionFrame = screensUnionFrame
+
+        var flipped = axFrame
+        flipped.origin.y = unionFrame.maxY - axFrame.origin.y - axFrame.height
+
+        return flipped
+    }
+
+    private func flipCGRectToAXCoordinates(_ rect: CGRect) -> CGRect {
+        let unionFrame = screensUnionFrame
+
+        var flipped = rect
+        flipped.origin.y = unionFrame.maxY - rect.origin.y - rect.height
+        return flipped
     }
 }

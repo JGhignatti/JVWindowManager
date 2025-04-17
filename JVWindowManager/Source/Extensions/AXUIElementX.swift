@@ -51,15 +51,12 @@ func withEnhancedUserInterfaceDisabled(
     _ = AXUIElementCopyAttributeValue(appElement, key, &originalValue)
     let wasEnabled = (originalValue as? Bool) ?? false
 
-    // Disable if currently enabled
     if wasEnabled {
         AXUIElementSetAttributeValue(appElement, key, kCFBooleanFalse)
     }
 
-    // Perform your window logic
     action()
 
-    // Restore to original value if it was enabled
     if wasEnabled {
         AXUIElementSetAttributeValue(appElement, key, kCFBooleanTrue)
     }

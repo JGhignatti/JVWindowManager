@@ -8,6 +8,10 @@
 import CoreGraphics
 
 extension CGRect {
+    var area: CGFloat {
+        width * height
+    }
+
     func insetBy(_ amount: CGFloat) -> CGRect {
         return insetBy(dx: amount, dy: amount)
     }
@@ -20,9 +24,9 @@ extension CGRect {
     ) -> CGRect {
         return CGRect(
             x: self.origin.x + left,
-            y: self.origin.y + top,
-            width: self.width - left - right,
-            height: self.height - top - bottom
+            y: self.origin.y + bottom,
+            width: self.width - (left + right),
+            height: self.height - (top + bottom)
         )
     }
 }
