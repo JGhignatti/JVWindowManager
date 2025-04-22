@@ -51,28 +51,31 @@ final class SettingsManager {
         }
     }
 
-    var defaultLayoutShortcutPairs: [LayoutShortcutPair] {
+    var layoutShortcuts: [LayoutShortcut] {
         get {
-            if let data = defaults.data(
-                forKey: SettingKey.defaultLayoutShortcutPairs
-            ),
-                let decoded = try? JSONDecoder().decode(
-                    [LayoutShortcutPair].self,
-                    from: data
-                )
-            {
-                return decoded
-            }
-
-            return Layout.allCases.map {
-                .init(layout: $0, shortcut: $0.defaultShortcut)
-            }
+            defaults.decode(
+                forKey: SettingKey.layoutShortcuts,
+                default: Layout.allCases.map { $0.defaultLayoutShortcut }
+            )
         }
         set {
-            if let data = try? JSONEncoder().encode(newValue) {
-                defaults.set(data, forKey: SettingKey.defaultLayoutShortcutPairs)
-                
+            defaults.encode(newValue, forKey: SettingKey.layoutShortcuts) {
                 HotKeysManager.shared.registerAll()
+            }
+        }
+    }
+    
+    var customLayoutShortcuts: [LayoutShortcut] {
+        get {
+            defaults.decode(
+                forKey: SettingKey.customLayoutShortcuts,
+                default: []
+            )
+        }
+        set {
+            defaults.encode(newValue, forKey: SettingKey.customLayoutShortcuts) {
+                // TODO: maybe separate in `registerAll` and `registerAllCustoms`
+//                HotKeysManager.shared.registerAll()
             }
         }
     }

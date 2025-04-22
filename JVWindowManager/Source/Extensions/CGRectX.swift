@@ -12,10 +12,6 @@ extension CGRect {
         width * height
     }
 
-    func insetBy(_ amount: CGFloat) -> CGRect {
-        return insetBy(dx: amount, dy: amount)
-    }
-
     func insetBy(
         top: CGFloat = 0,
         right: CGFloat = 0,

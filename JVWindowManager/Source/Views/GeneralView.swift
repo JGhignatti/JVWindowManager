@@ -125,7 +125,6 @@ struct GeneralView: View {
             }
             .padding(.horizontal)
         }
-        .frame(minWidth: 480)
     }
 }
 

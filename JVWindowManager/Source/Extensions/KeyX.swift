@@ -10,12 +10,14 @@ import HotKey
 extension Key: Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        let raw = try container.decode(String.self)
-        self = Key(string: raw) ?? .return
+
+        let raw = try container.decode(UInt32.self)
+        self = Key(carbonKeyCode: raw) ?? .return
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
-        try container.encode(description)
+
+        try container.encode(carbonKeyCode)
     }
 }

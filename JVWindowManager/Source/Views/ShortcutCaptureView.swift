@@ -35,7 +35,7 @@ struct ShortcutCaptureView: NSViewRepresentable {
         if isCapturing {
             nsView.stringValue = "Press key..."
         } else if let shortcut = shortcut {
-            nsView.stringValue = shortcut.key.description
+//            nsView.stringValue = shortcut.key.description
         } else {
             nsView.stringValue = "Click to enter"
         }
@@ -73,10 +73,10 @@ struct ShortcutCaptureView: NSViewRepresentable {
                     return event
                 }
 
-                self.parent.shortcut = KeyboardShortcut(
-                    key: key,
-                    modifiers: parent.modifiers
-                )
+//                self.parent.shortcut = KeyboardShortcut(
+//                    key: key,
+//                    modifiers: parent.modifiers
+//                )
 
                 self.isCapturing = false
                 self.stopMonitoring()

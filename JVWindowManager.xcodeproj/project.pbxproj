@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB2DEE482DB5EB4200BB06D7 /* Expression in Frameworks */ = {isa = PBXBuildFile; productRef = DB2DEE472DB5EB4200BB06D7 /* Expression */; };
 		DB633BEF2DAEFCFC00CE6940 /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = DB633BEE2DAEFCFC00CE6940 /* HotKey */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB2DEE482DB5EB4200BB06D7 /* Expression in Frameworks */,
 				DB633BEF2DAEFCFC00CE6940 /* HotKey in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,6 +73,7 @@
 			name = JVWindowManager;
 			packageProductDependencies = (
 				DB633BEE2DAEFCFC00CE6940 /* HotKey */,
+				DB2DEE472DB5EB4200BB06D7 /* Expression */,
 			);
 			productName = JVWindowManager;
 			productReference = DB633B862DAEF35B00CE6940 /* JVWindowManager.app */;
@@ -102,6 +105,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				DB633BED2DAEFCFC00CE6940 /* XCRemoteSwiftPackageReference "HotKey" */,
+				DB2DEE462DB5EB4200BB06D7 /* XCRemoteSwiftPackageReference "Expression" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DB633B872DAEF35B00CE6940 /* Products */;
@@ -332,6 +336,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		DB2DEE462DB5EB4200BB06D7 /* XCRemoteSwiftPackageReference "Expression" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nicklockwood/Expression";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.13.9;
+			};
+		};
 		DB633BED2DAEFCFC00CE6940 /* XCRemoteSwiftPackageReference "HotKey" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/soffes/HotKey";
@@ -343,6 +355,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		DB2DEE472DB5EB4200BB06D7 /* Expression */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB2DEE462DB5EB4200BB06D7 /* XCRemoteSwiftPackageReference "Expression" */;
+			productName = Expression;
+		};
 		DB633BEE2DAEFCFC00CE6940 /* HotKey */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DB633BED2DAEFCFC00CE6940 /* XCRemoteSwiftPackageReference "HotKey" */;

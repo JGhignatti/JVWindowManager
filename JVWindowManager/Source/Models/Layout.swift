@@ -8,7 +8,7 @@
 import HotKey
 import SwiftUI
 
-enum Layout: String, CaseIterable, Identifiable, Codable {
+enum Layout: CaseIterable, Codable, CustomStringConvertible {
     case fullScreen
 
     case topHalf
@@ -35,23 +35,7 @@ enum Layout: String, CaseIterable, Identifiable, Codable {
     case smPeekLeft
     case smPeekRight
 
-    var id: String {
-        rawValue
-    }
-
-    var modifiers: NSEvent.ModifierFlags {
-        switch self {
-        case .fullScreen, .topHalf, .bottomHalf, .leftHalf, .rightHalf,
-            .vCenterHalf, .hCenterHalf, .peekLeft, .peekRight:
-            return [.control, .option]
-        case .smFullScreen, .smTopHalf, .smBottomHalf, .smLeftHalf,
-            .smRightHalf, .smVCenterHalf, .smHCenterHalf, .smPeekLeft,
-            .smPeekRight:
-            return [.shift, .control, .option]
-        }
-    }
-
-    var name: String {
+    var description: String {
         switch self {
         case .fullScreen:
             return "Full Screen"
@@ -91,168 +75,183 @@ enum Layout: String, CaseIterable, Identifiable, Codable {
             return "Stage Manager Peek Right"
         }
     }
-    
-    var defaultShortcut: KeyboardShortcut {
-        var defaultKey: Key {
-            switch self {
-            case .fullScreen, .smFullScreen:
-                return .return
-            case .topHalf, .smTopHalf:
-                return .upArrow
-            case .bottomHalf, .smBottomHalf:
-                return .downArrow
-            case .leftHalf, .smLeftHalf:
-                return .leftArrow
-            case .rightHalf, .smRightHalf:
-                return .rightArrow
-            case .vCenterHalf, .smVCenterHalf:
-                return .v
-            case .hCenterHalf, .smHCenterHalf:
-                return .h
-            case .peekLeft, .smPeekLeft:
-                return .o
-            case .peekRight, .smPeekRight:
-                return .p
-            }
+
+    var defaultKey: Key {
+        switch self {
+        case .fullScreen, .smFullScreen:
+            return .return
+        case .topHalf, .smTopHalf:
+            return .upArrow
+        case .bottomHalf, .smBottomHalf:
+            return .downArrow
+        case .leftHalf, .smLeftHalf:
+            return .leftArrow
+        case .rightHalf, .smRightHalf:
+            return .rightArrow
+        case .vCenterHalf, .smVCenterHalf:
+            return .v
+        case .hCenterHalf, .smHCenterHalf:
+            return .h
+        case .peekLeft, .smPeekLeft:
+            return .o
+        case .peekRight, .smPeekRight:
+            return .p
         }
-        
-        return .init(key: defaultKey, modifiers: modifiers)
     }
 
-    func inset(from rect: CGRect) -> CGRect {
-        let gap = CGFloat(SettingsManager.shared.gapSize)
-        let halfGap = gap / 2
-        let stageManager = CGFloat(SettingsManager.shared.stageManagerSize)
-        let peekSize = CGFloat(SettingsManager.shared.peekSize)
+    var defaultModifiers: NSEvent.ModifierFlags {
+        switch self {
+        case .fullScreen, .topHalf, .bottomHalf, .leftHalf, .rightHalf,
+            .vCenterHalf, .hCenterHalf, .peekLeft, .peekRight:
+            return [.control, .option]
+        case .smFullScreen, .smTopHalf, .smBottomHalf, .smLeftHalf,
+            .smRightHalf, .smVCenterHalf, .smHCenterHalf, .smPeekLeft,
+            .smPeekRight:
+            return [.shift, .control, .option]
+        }
+    }
 
+    var defaultKeyCombo: KeyCombo {
+        .init(key: defaultKey, modifiers: defaultModifiers)
+    }
+
+    var defaultLayoutShortcut: LayoutShortcut {
+        .init(
+            name: description,
+            keyCombo: defaultKeyCombo,
+            insetRectExpression: insetRectExpression
+        )
+    }
+
+    var insetRectExpression: InsetRectExpression {
         switch self {
         case .fullScreen:
-            return rect.insetBy(gap)
+            return .init("gap")
 
         case .topHalf:
-            return rect.insetBy(
-                top: gap,
-                right: gap,
-                bottom: rect.height / 2 + halfGap,
-                left: gap
+            return .init(
+                top: "gap",
+                bottom: "height / 2 + halfGap",
+                left: "gap",
+                right: "gap"
             )
 
         case .bottomHalf:
-            return rect.insetBy(
-                top: rect.height / 2 + halfGap,
-                right: gap,
-                bottom: gap,
-                left: gap
+            return .init(
+                top: "height / 2 + halfGap",
+                bottom: "gap",
+                left: "gap",
+                right: "gap"
             )
 
         case .leftHalf:
-            return rect.insetBy(
-                top: gap,
-                right: rect.width / 2 + halfGap,
-                bottom: gap,
-                left: gap
+            return .init(
+                top: "gap",
+                bottom: "gap",
+                left: "gap",
+                right: "width / 2 + halfGap"
             )
 
         case .rightHalf:
-            return rect.insetBy(
-                top: gap,
-                right: gap,
-                bottom: gap,
-                left: rect.width / 2 + halfGap
+            return .init(
+                top: "gap",
+                bottom: "gap",
+                left: "width / 2 + halfGap",
+                right: "gap"
             )
 
         case .vCenterHalf:
-            return rect.insetBy(dx: gap, dy: rect.height / 4 + halfGap)
+            return .init(dx: "gap", dy: "height / 4 + halfGap")
 
         case .hCenterHalf:
-            return rect.insetBy(dx: rect.width / 4 + halfGap, dy: gap)
+            return .init(dx: "width / 4 + halfGap", dy: "gap")
 
         case .peekLeft:
-            return rect.insetBy(
-                top: gap,
-                right: gap,
-                bottom: gap,
-                left: peekSize + gap
+            return .init(
+                top: "gap",
+                bottom: "gap",
+                left: "peek + gap",
+                right: "gap"
             )
 
         case .peekRight:
-            return rect.insetBy(
-                top: gap,
-                right: peekSize + gap,
-                bottom: gap,
-                left: gap
+            return .init(
+                top: "gap",
+                bottom: "gap",
+                left: "gap",
+                right: "peek + gap"
             )
 
         case .smFullScreen:
-            return rect.insetBy(
-                top: gap,
-                right: gap,
-                bottom: gap,
-                left: stageManager + gap
+            return .init(
+                top: "gap",
+                bottom: "gap",
+                left: "stageManager + gap",
+                right: "gap"
             )
 
         case .smTopHalf:
-            return rect.insetBy(
-                top: gap,
-                right: gap,
-                bottom: rect.height / 2 + halfGap,
-                left: stageManager + gap
+            return .init(
+                top: "gap",
+                bottom: "height / 2 + halfGap",
+                left: "stageManager + gap",
+                right: "gap"
             )
 
         case .smBottomHalf:
-            return rect.insetBy(
-                top: rect.height / 2 + halfGap,
-                right: gap,
-                bottom: gap,
-                left: stageManager + gap
+            return .init(
+                top: "height / 2 + halfGap",
+                bottom: "gap",
+                left: "stageManager + gap",
+                right: "gap"
             )
 
         case .smLeftHalf:
-            return rect.insetBy(
-                top: gap,
-                right: (rect.width - stageManager) / 2 + halfGap,
-                bottom: gap,
-                left: stageManager + gap
+            return .init(
+                top: "gap",
+                bottom: "gap",
+                left: "stageManager + gap",
+                right: "(width - stageManager) / 2 + halfGap"
             )
 
         case .smRightHalf:
-            return rect.insetBy(
-                top: gap,
-                right: gap,
-                bottom: gap,
-                left: stageManager + (rect.width - stageManager) / 2 + halfGap
+            return .init(
+                top: "gap",
+                bottom: "gap",
+                left: "stageManager + (width - stageManager) / 2 + halfGap",
+                right: "gap"
             )
 
         case .smVCenterHalf:
-            return rect.insetBy(
-                top: rect.height / 4 + halfGap,
-                right: gap,
-                bottom: rect.height / 4 + halfGap,
-                left: stageManager + gap
+            return .init(
+                top: "height / 4 + halfGap",
+                bottom: "height / 4 + halfGap",
+                left: "stageManager + gap",
+                right: "gap"
             )
 
         case .smHCenterHalf:
-            return rect.insetBy(
-                top: gap,
-                right: rect.width / 4 + halfGap,
-                bottom: gap,
-                left: stageManager + rect.width / 4 + halfGap
+            return .init(
+                top: "gap",
+                bottom: "gap",
+                left: "stageManager + width / 4 + halfGap",
+                right: "gap"
             )
 
         case .smPeekLeft:
-            return rect.insetBy(
-                top: gap,
-                right: gap,
-                bottom: gap,
-                left: stageManager + peekSize + gap
+            return .init(
+                top: "gap",
+                bottom: "gap",
+                left: "stageManager + peek+  gap",
+                right: "gap"
             )
 
         case .smPeekRight:
-            return rect.insetBy(
-                top: gap,
-                right: peekSize + gap,
-                bottom: gap,
-                left: stageManager + gap
+            return .init(
+                top: "gap",
+                bottom: "gap",
+                left: "stageManager + gap",
+                right: "peek + gap"
             )
         }
     }

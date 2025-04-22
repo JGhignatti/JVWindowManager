@@ -7,23 +7,4 @@
 
 import AppKit
 
-extension NSEvent.ModifierFlags {
-    var displaySymbols: String {
-        var symbols = ""
-
-        if contains(.shift) {
-            symbols += "⇧"
-        }
-        if contains(.control) {
-            symbols += "⌃"
-        }
-        if contains(.option) {
-            symbols += "⌥"
-        }
-        if contains(.command) {
-            symbols += "⌘"
-        }
-
-        return symbols
-    }
-}
+extension NSEvent.ModifierFlags: Codable {}

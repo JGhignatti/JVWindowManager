@@ -1,6 +1,15 @@
 {
-  "originHash" : "01f286328852d165d87f8fbee99b01f9c2c936f57ac234f76396f74f9d2496dd",
+  "originHash" : "0ae5b72fa43e882594f227d8f72eb9826c50f9271fd7399a99b174bfefae395d",
   "pins" : [
+    {
+      "identity" : "expression",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nicklockwood/Expression",
+      "state" : {
+        "revision" : "95ffe4c352e456cede933d9910d25b9c84039d1b",
+        "version" : "0.13.9"
+      }
+    },
     {
       "identity" : "hotkey",
       "kind" : "remoteSourceControl",

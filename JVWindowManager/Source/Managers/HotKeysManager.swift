@@ -10,43 +10,27 @@ import HotKey
 final class HotKeysManager {
     static let shared = HotKeysManager()
 
-    private var hotKeys: [Layout: HotKey] = [:]
+    private var hotKeys: [HotKey] = []
 
     private init() {}
 
     func registerAll() {
-        unregisterAll()
-
-        let layoutShortcutPairs = SettingsManager.shared
-            .defaultLayoutShortcutPairs
-
-        for pair in layoutShortcutPairs {
-            guard let shortcut = pair.shortcut else { continue }
-
-            register(shortcut, for: pair.layout) {
-                LayoutManager.shared.trigger(pair.layout)
-            }
-        }
-    }
-
-    private func register(
-        _ shortcut: KeyboardShortcut,
-        for layout: Layout,
-        handler: @escaping () -> Void
-    ) {
-        unregister(layout)
-
-        let hotKey = HotKey(key: shortcut.key, modifiers: shortcut.modifiers)
-        hotKey.keyDownHandler = handler
-
-        hotKeys[layout] = hotKey
-    }
-
-    private func unregister(_ layout: Layout) {
-        hotKeys[layout] = nil
-    }
-
-    private func unregisterAll() {
         hotKeys.removeAll()
+
+        hotKeys =
+            SettingsManager.shared.layoutShortcuts
+            .filter { $0.enabled }
+            .map {
+                let insetRectExpression = $0.insetRectExpression
+                let hotKey = HotKey(
+                    key: $0.keyCombo.key,
+                    modifiers: $0.keyCombo.modifiers
+                )
+                hotKey.keyDownHandler = {
+                    LayoutManager.shared.trigger(insetRectExpression)
+                }
+
+                return hotKey
+            }
     }
 }

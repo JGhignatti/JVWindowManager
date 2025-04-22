@@ -63,6 +63,7 @@ struct JVWindowManagerApp: App {
                     )
                 }
         }
+        .defaultSize(width: 800, height: 460)
 
         MenuBarExtra(
             "JV Window Manager",

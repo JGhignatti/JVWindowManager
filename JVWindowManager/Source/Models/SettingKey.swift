@@ -10,5 +10,6 @@ enum SettingKey {
     static let stageManagerSize = "stageManagerSize"
     static let peekSize = "peekSize"
     
-    static let defaultLayoutShortcutPairs = "defaultLayoutShortcutPairs"
+    static let layoutShortcuts = "layoutShortcuts"
+    static let customLayoutShortcuts = "customLayoutShortcuts"
 }
