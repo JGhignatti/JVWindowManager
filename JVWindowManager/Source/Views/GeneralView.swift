@@ -130,7 +130,7 @@ struct GeneralView: View {
             HStack {
                 Spacer()
                 Link(
-                    "Need help with configuring?",
+                    "Need help configuring?",
                     destination: URL(
                         string:
                             "https://github.com/JGhignatti/JVWindowManager"
