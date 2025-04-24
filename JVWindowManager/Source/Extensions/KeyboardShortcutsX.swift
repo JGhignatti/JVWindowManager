@@ -29,6 +29,22 @@ extension KeyboardShortcuts.Name {
         "defaultRightHalf",
         default: .init(.rightArrow, modifiers: [.control, .option])
     )
+    static let defaultTopLeftCorner = Self(
+        "defaultTopLeftCorner",
+        default: .init(.u, modifiers: [.control, .option])
+    )
+    static let defaultTopRightCorner = Self(
+        "defaultTopRightCorner",
+        default: .init(.i, modifiers: [.control, .option])
+    )
+    static let defaultBottomLeftCorner = Self(
+        "defaultBottomLeftCorner",
+        default: .init(.j, modifiers: [.control, .option])
+    )
+    static let defaultBottomRightCorner = Self(
+        "defaultBottomRightCorner",
+        default: .init(.k, modifiers: [.control, .option])
+    )
     static let defaultVCenterHalf = Self(
         "defaultVCenterHalf",
         default: .init(.v, modifiers: [.control, .option])
@@ -66,6 +82,22 @@ extension KeyboardShortcuts.Name {
     static let defaultSMRightHalf = Self(
         "defaultSMRightHalf",
         default: .init(.rightArrow, modifiers: [.control, .option, .shift])
+    )
+    static let defaultSMTopLeftCorner = Self(
+        "defaultSMTopLeftCorner",
+        default: .init(.u, modifiers: [.control, .option, .shift])
+    )
+    static let defaultSMTopRightCorner = Self(
+        "defaultSMTopRightCorner",
+        default: .init(.i, modifiers: [.control, .option, .shift])
+    )
+    static let defaultSMBottomLeftCorner = Self(
+        "defaultSMBottomLeftCorner",
+        default: .init(.j, modifiers: [.control, .option, .shift])
+    )
+    static let defaultSMBottomRightCorner = Self(
+        "defaultSMBottomRightCorner",
+        default: .init(.k, modifiers: [.control, .option, .shift])
     )
     static let defaultSMVCenterHalf = Self(
         "defaultSMVCenterHalf",

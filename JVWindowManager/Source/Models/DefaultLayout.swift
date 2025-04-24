@@ -15,6 +15,11 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
     case bottomHalf
     case leftHalf
     case rightHalf
+    
+    case topLeftCorner
+    case topRightCorner
+    case bottomLeftCorner
+    case bottomRightCorner
 
     case vCenterHalf
     case hCenterHalf
@@ -28,6 +33,11 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
     case smBottomHalf
     case smLeftHalf
     case smRightHalf
+    
+    case smTopLeftCorner
+    case smTopRightCorner
+    case smBottomLeftCorner
+    case smBottomRightCorner
 
     case smVCenterHalf
     case smHCenterHalf
@@ -51,6 +61,14 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
             return "Left Half"
         case .rightHalf:
             return "Right Half"
+        case .topLeftCorner:
+            return "Top Left Corner"
+        case .topRightCorner:
+            return "Top Right Corner"
+        case .bottomLeftCorner:
+            return "Bottom Left Corner"
+        case .bottomRightCorner:
+            return "Bottom Right Corner"
         case .vCenterHalf:
             return "Vertical Center Half"
         case .hCenterHalf:
@@ -69,6 +87,14 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
             return "Stage Manager Left Half"
         case .smRightHalf:
             return "Stage Manager Right Half"
+        case .smTopLeftCorner:
+            return "Stage Manager Top Left Corner"
+        case .smTopRightCorner:
+            return "Stage Manager Top Right Corner"
+        case .smBottomLeftCorner:
+            return "Stage Manager Bottom Left Corner"
+        case .smBottomRightCorner:
+            return "Stage Manager Bottom Right Corner"
         case .smVCenterHalf:
             return "Stage Manager Vert. Center Half"
         case .smHCenterHalf:
@@ -92,6 +118,14 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
             return .defaultLeftHalf
         case .rightHalf:
             return .defaultRightHalf
+        case .topLeftCorner:
+            return .defaultTopLeftCorner
+        case .topRightCorner:
+            return .defaultTopRightCorner
+        case .bottomLeftCorner:
+            return .defaultBottomLeftCorner
+        case .bottomRightCorner:
+            return .defaultBottomRightCorner
         case .vCenterHalf:
             return .defaultVCenterHalf
         case .hCenterHalf:
@@ -110,6 +144,14 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
             return .defaultSMLeftHalf
         case .smRightHalf:
             return .defaultSMRightHalf
+        case .smTopLeftCorner:
+            return .defaultSMTopLeftCorner
+        case .smTopRightCorner:
+            return .defaultSMTopRightCorner
+        case .smBottomLeftCorner:
+            return .defaultSMBottomLeftCorner
+        case .smBottomRightCorner:
+            return .defaultSMBottomRightCorner
         case .smVCenterHalf:
             return .defaultSMVCenterHalf
         case .smHCenterHalf:
@@ -153,6 +195,38 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
         case .rightHalf:
             return .init(
                 top: "padding",
+                bottom: "padding",
+                left: "width / 2 + halfGap",
+                right: "padding"
+            )
+            
+        case .topLeftCorner:
+            return .init(
+                top: "padding",
+                bottom: "height / 2 + halfGap",
+                left: "padding",
+                right: "width / 2 + halfGap"
+            )
+            
+        case .topRightCorner:
+            return .init(
+                top: "padding",
+                bottom: "height / 2 + halfGap",
+                left: "width / 2 + halfGap",
+                right: "padding"
+            )
+            
+        case .bottomLeftCorner:
+            return .init(
+                top: "height / 2 + halfGap",
+                bottom: "padding",
+                left: "padding",
+                right: "width / 2 + halfGap"
+            )
+            
+        case .bottomRightCorner:
+            return .init(
+                top: "height / 2 + halfGap",
                 bottom: "padding",
                 left: "width / 2 + halfGap",
                 right: "padding"
@@ -215,6 +289,38 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
         case .smRightHalf:
             return .init(
                 top: "padding",
+                bottom: "padding",
+                left: "stageManager + (width - stageManager) / 2 + halfGap",
+                right: "padding"
+            )
+            
+        case .smTopLeftCorner:
+            return .init(
+                top: "padding",
+                bottom: "height / 2 + halfGap",
+                left: "stageManager",
+                right: "(width - stageManager) / 2 + halfGap"
+            )
+            
+        case .smTopRightCorner:
+            return .init(
+                top: "padding",
+                bottom: "height / 2 + halfGap",
+                left: "stageManager + (width - stageManager) / 2 + halfGap",
+                right: "padding"
+            )
+            
+        case .smBottomLeftCorner:
+            return .init(
+                top: "height / 2 + halfGap",
+                bottom: "padding",
+                left: "stageManager",
+                right: "(width - stageManager) / 2 + halfGap"
+            )
+            
+        case .smBottomRightCorner:
+            return .init(
+                top: "height / 2 + halfGap",
                 bottom: "padding",
                 left: "stageManager + (width - stageManager) / 2 + halfGap",
                 right: "padding"
