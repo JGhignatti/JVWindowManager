@@ -5,63 +5,17 @@
 //  Created by João Ghignatti on 15/04/25.
 //
 
+import KeyboardShortcuts
 import SwiftUI
 
 @main
 struct JVWindowManagerApp: App {
-    @State private var isPermissionGranted: Bool?
-    @State private var isFirstSettingsLaunch = true
-
-    private var showPermissionAlert: Bool {
-        guard let _isPermissionGranted = isPermissionGranted,
-            isPermissionGranted != nil
-        else {
-            return false
-        }
-
-        return !_isPermissionGranted && isFirstSettingsLaunch
-    }
-    
-    init() {
-        HotKeysManager.shared.registerAll()
-    }
+    @State private var shortcutState = ShortcutState()
     
     var body: some Scene {
         Window("JV Window Manager", id: K.WindowId.Settings) {
             SettingsMainView()
-                .identifyWindow(K.WindowId.Settings)
-                .onAppear {
-                    isPermissionGranted =
-                        AccessibilityPermissionManager.shared
-                        .isPermissionGranted
-                }
-                .onDisappear {
-                    isFirstSettingsLaunch = false
-                }
-                .alert(
-                    "Accessibility Permission Required",
-                    isPresented: Binding(
-                        get: {
-                            showPermissionAlert
-                        },
-                        set: { _ in }
-                    )
-                ) {
-                    Button("OK") {
-                        AccessibilityPermissionManager.shared.promptIfNeeded()
-                    }
-
-                    Button("Quit", role: .cancel) {
-                        NSApp.terminate(nil)
-                    }
-                } message: {
-                    Text(
-                        """
-                        This app needs permission to control other apps' windows.
-                        Please click OK and grant access in System Settings → Privacy & Security → Accessibility.
-                        """
-                    )
-                }
+                .accessibilityPermissionPrompt()
         }
         .defaultSize(width: 800, height: 460)
 
@@ -70,6 +24,18 @@ struct JVWindowManagerApp: App {
             systemImage: "inset.filled.lefthalf.topright.bottomright.rectangle"
         ) {
             MenuBarExtraView()
+        }
+    }
+}
+
+@MainActor
+@Observable
+final class ShortcutState {
+    init() {
+        DefaultLayout.allCases.forEach { layout in
+            KeyboardShortcuts.onKeyDown(for: layout.keyboardShortcutName) {
+                LayoutManager.shared.trigger(layout.insetRect)
+            }
         }
     }
 }

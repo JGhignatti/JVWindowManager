@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-extension View {
-    func identifyWindow(_ id: String) -> some View {
-        self.modifier(IdentifyWindowModifier(identifier: id))
+extension View {    
+    func accessibilityPermissionPrompt() -> some View {
+        self.modifier(AccessibilityPermissionPromptModifier())
     }
 
     func inlineCode(_ textStyle: Font.TextStyle = .body) -> some View {

@@ -60,7 +60,7 @@ final class LayoutManager {
 
     private init() {}
     
-    func trigger(_ insetRectExpression: InsetRectExpression) {
+    func trigger(_ insetRect: InsetRect) {
         guard AccessibilityPermissionManager.shared.isPermissionGranted,
             let app = NSWorkspace.shared.frontmostApplication
         else {
@@ -68,17 +68,17 @@ final class LayoutManager {
         }
 
         withEnhancedUserInterfaceDisabled(for: app) {
-            apply(insetRectExpression)
+            apply(insetRect)
         }
     }
     
-    private func apply(_ insetRectExpression: InsetRectExpression) {
+    private func apply(_ insetRect: InsetRect) {
         guard let windowElement = windowElement, let screen = screen
         else {
             return
         }
         
-        let targetFrame = try! insetRectExpression.evaluate(for: screen.visibleFrame)
+        let targetFrame = try! insetRect.evaluate(for: screen.visibleFrame)
         var finalFrame = flipCGRectToAXCoordinates(targetFrame)
         
         let _ = windowElement.setAttributeValue(

@@ -5,126 +5,142 @@
 //  Created by João Ghignatti on 15/04/25.
 //
 
+import Defaults
+import LaunchAtLogin
 import SwiftUI
 
 struct GeneralView: View {
-    @State private var launchAtLoginModel = LaunchAtLoginModel()
-
-    @State private var gapSize = SettingsManager.shared.gapSize
-    @State private var stageManagerSize = SettingsManager.shared
-        .stageManagerSize
-    @State private var peekSize = SettingsManager.shared.peekSize
+    @Default(.sizes) var sizes: Sizes
 
     var body: some View {
-        GeometryReader { g in
-            ScrollView {
-                GroupBox(
-                    label: Text("Behaviors").padding(.bottom, 4)
-                        .foregroundColor(.secondary)
-                ) {
-                    VStack {
-                        HStack {
-                            Text("Launch at login")
-                            Spacer()
-                            Toggle(
-                                "",
-                                isOn: Binding(
-                                    get: {
-                                        launchAtLoginModel.enabled
-                                    },
-                                    set: { value in
-                                        launchAtLoginModel.change(value: value)
-                                    }
-                                )
-                            )
-                            .toggleStyle(.switch)
-                        }
-
-                        if launchAtLoginModel.error {
-                            HStack {
-                                Spacer()
-                                Text("Error updating launch at login")
-                                    .foregroundColor(.red)
-                            }
-                            .padding(.top, 4)
-                        }
+        ScrollView {
+            GroupBox(
+                label:
+                    Text("Behaviors").foregroundColor(.secondary)
+            ) {
+                LaunchAtLogin.Toggle {
+                    HStack {
+                        Text("Launch at login")
+                            .font(.body)
+                        Spacer()
                     }
-                    .padding(4)
                 }
-                .padding(.top)
-                .onAppear {
-                    launchAtLoginModel.sync()
-                }
+                .toggleStyle(.switch)
+                .controlSize(.small)
+                .padding(8)
+            }
 
-                GroupBox(
-                    label: Text("Sizes").padding(.bottom, 4).foregroundColor(
-                        .secondary
-                    )
-                ) {
-                    VStack {
+            GroupBox(
+                label:
+                    Text("Sizes").foregroundColor(.secondary)
+            ) {
+                VStack {
+                    HStack {
+                        Text("Padding")
+                            .frame(width: 120, alignment: .leading)
+
+                        Slider(
+                            value: Binding<Double>(
+                                get: {
+                                    Double(sizes.padding)
+                                },
+                                set: {
+                                    sizes.padding = Int($0)
+                                }
+                            ),
+                            in: 0...50
+                        )
+                        .controlSize(.mini)
+                        Text("\(sizes.padding)")
+                            .frame(width: 40, alignment: .trailing)
+                    }
+                    .padding(.vertical, 4)
+
+                    Divider()
+
+                    HStack {
+                        Text("Gap")
+                            .frame(width: 120, alignment: .leading)
+                        Slider(
+                            value: Binding<Double>(
+                                get: {
+                                    Double(sizes.gap)
+                                },
+                                set: {
+                                    sizes.gap = Int($0)
+                                }
+                            ),
+                            in: 0...50
+                        )
+                        .controlSize(.mini)
+                        Text("\(sizes.gap)")
+                            .frame(width: 40, alignment: .trailing)
+                    }
+                    .padding(.vertical, 4)
+
+                    Divider()
+
+                    HStack {
+                        Text("Stage manager")
+                            .frame(width: 120, alignment: .leading)
                         HStack {
-                            Text("Gap size")
-                            Spacer()
                             Slider(
                                 value: Binding<Double>(
-                                    get: { Double(gapSize) },
-                                    set: { value in
-                                        SettingsManager.shared.gapSize = Int(
-                                            value
-                                        )
-                                        gapSize = Int(value)
-                                    }
-                                ),
-                                in: 0...50
-                            )
-                            .frame(width: g.size.width * 0.5)
-                            Text("\(gapSize)px")
-                                .frame(width: 40, alignment: .trailing)
-                        }
-                        Divider()
-                        HStack {
-                            Text("Stage manager size")
-                            Spacer()
-                            Slider(
-                                value: Binding<Double>(
-                                    get: { Double(stageManagerSize) },
-                                    set: { value in
-                                        SettingsManager.shared
-                                            .stageManagerSize = Int(value)
-                                        stageManagerSize = Int(value)
+                                    get: {
+                                        Double(sizes.stageManager)
+                                    },
+                                    set: {
+                                        sizes.stageManager = Int($0)
                                     }
                                 ),
                                 in: 0...250
                             )
-                            .frame(width: g.size.width * 0.5)
-                            Text("\(stageManagerSize)px")
-                                .frame(width: 40, alignment: .trailing)
-                        }
-                        Divider()
-                        HStack {
-                            Text("Peek size")
-                            Spacer()
-                            Slider(
-                                value: Binding<Double>(
-                                    get: { Double(peekSize) },
-                                    set: { value in
-                                        SettingsManager.shared
-                                            .peekSize = Int(value)
-                                        peekSize = Int(value)
-                                    }
-                                ),
-                                in: 0...100
-                            )
-                            .frame(width: g.size.width * 0.5)
-                            Text("\(peekSize)px")
+                            .controlSize(.mini)
+                            Text("\(sizes.stageManager)")
                                 .frame(width: 40, alignment: .trailing)
                         }
                     }
-                    .padding(4)
+                    .padding(.vertical, 4)
+
+                    Divider()
+
+                    HStack {
+                        Text("Peek")
+                            .frame(width: 120, alignment: .leading)
+                        Slider(
+                            value: Binding<Double>(
+                                get: {
+                                    Double(sizes.peek)
+                                },
+                                set: {
+                                    sizes.peek = Int($0)
+                                }
+                            ),
+                            in: 0...100
+                        )
+                        .controlSize(.mini)
+                        Text("\(sizes.peek)")
+                            .frame(width: 40, alignment: .trailing)
+                    }
+                    .padding(.vertical, 4)
                 }
+                .padding(8)
             }
-            .padding(.horizontal)
+
+            HStack {
+                Spacer()
+                Link(
+                    "Need help with configuring?",
+                    destination: URL(
+                        string:
+                            "https://github.com/JGhignatti/JVWindowManager"
+                    )!
+                )
+                .font(.caption)
+            }
+
         }
+        .contentMargins(20, for: .scrollContent)
     }
 }
 

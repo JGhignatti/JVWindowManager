@@ -11,13 +11,15 @@ struct MenuBarExtraView: View {
     @Environment(\.openWindow) private var openWindow
 
     var body: some View {
-        VStack {
-            Button("Settings...") {
-                openWindow(id: K.WindowId.Settings)
-            }
-
-            Button("Quit") {
-                NSApp.terminate(nil)
+        Section("JV Window Manager") {
+            VStack {
+                Button("Settings...") {
+                    openWindow(id: K.WindowId.Settings)
+                }
+                
+                Button("Quit") {
+                    NSApp.terminate(nil)
+                }
             }
         }
     }

@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		DB2DEE482DB5EB4200BB06D7 /* Expression in Frameworks */ = {isa = PBXBuildFile; productRef = DB2DEE472DB5EB4200BB06D7 /* Expression */; };
-		DB633BEF2DAEFCFC00CE6940 /* HotKey in Frameworks */ = {isa = PBXBuildFile; productRef = DB633BEE2DAEFCFC00CE6940 /* HotKey */; };
+		DB716E422DB95E0A007BDB6D /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = DB716E412DB95E0A007BDB6D /* KeyboardShortcuts */; };
+		DB716E4C2DB9702D007BDB6D /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = DB716E4B2DB9702D007BDB6D /* LaunchAtLogin */; };
+		DB716E4F2DB977AD007BDB6D /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = DB716E4E2DB977AD007BDB6D /* Defaults */; };
+		DB716E512DB977AD007BDB6D /* DefaultsMacros in Frameworks */ = {isa = PBXBuildFile; productRef = DB716E502DB977AD007BDB6D /* DefaultsMacros */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +32,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB2DEE482DB5EB4200BB06D7 /* Expression in Frameworks */,
-				DB633BEF2DAEFCFC00CE6940 /* HotKey in Frameworks */,
+				DB716E4C2DB9702D007BDB6D /* LaunchAtLogin in Frameworks */,
+				DB716E512DB977AD007BDB6D /* DefaultsMacros in Frameworks */,
+				DB716E422DB95E0A007BDB6D /* KeyboardShortcuts in Frameworks */,
+				DB716E4F2DB977AD007BDB6D /* Defaults in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,8 +78,11 @@
 			);
 			name = JVWindowManager;
 			packageProductDependencies = (
-				DB633BEE2DAEFCFC00CE6940 /* HotKey */,
 				DB2DEE472DB5EB4200BB06D7 /* Expression */,
+				DB716E412DB95E0A007BDB6D /* KeyboardShortcuts */,
+				DB716E4B2DB9702D007BDB6D /* LaunchAtLogin */,
+				DB716E4E2DB977AD007BDB6D /* Defaults */,
+				DB716E502DB977AD007BDB6D /* DefaultsMacros */,
 			);
 			productName = JVWindowManager;
 			productReference = DB633B862DAEF35B00CE6940 /* JVWindowManager.app */;
@@ -104,8 +113,10 @@
 			mainGroup = DB633B7D2DAEF35B00CE6940;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				DB633BED2DAEFCFC00CE6940 /* XCRemoteSwiftPackageReference "HotKey" */,
 				DB2DEE462DB5EB4200BB06D7 /* XCRemoteSwiftPackageReference "Expression" */,
+				DB716E402DB95E0A007BDB6D /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
+				DB716E4A2DB9702D007BDB6D /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
+				DB716E4D2DB977AD007BDB6D /* XCRemoteSwiftPackageReference "Defaults" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DB633B872DAEF35B00CE6940 /* Products */;
@@ -344,12 +355,28 @@
 				minimumVersion = 0.13.9;
 			};
 		};
-		DB633BED2DAEFCFC00CE6940 /* XCRemoteSwiftPackageReference "HotKey" */ = {
+		DB716E402DB95E0A007BDB6D /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/soffes/HotKey";
+			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.1;
+				minimumVersion = 2.3.0;
+			};
+		};
+		DB716E4A2DB9702D007BDB6D /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Modern";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
+		DB716E4D2DB977AD007BDB6D /* XCRemoteSwiftPackageReference "Defaults" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/Defaults";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -360,10 +387,25 @@
 			package = DB2DEE462DB5EB4200BB06D7 /* XCRemoteSwiftPackageReference "Expression" */;
 			productName = Expression;
 		};
-		DB633BEE2DAEFCFC00CE6940 /* HotKey */ = {
+		DB716E412DB95E0A007BDB6D /* KeyboardShortcuts */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB633BED2DAEFCFC00CE6940 /* XCRemoteSwiftPackageReference "HotKey" */;
-			productName = HotKey;
+			package = DB716E402DB95E0A007BDB6D /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
+			productName = KeyboardShortcuts;
+		};
+		DB716E4B2DB9702D007BDB6D /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB716E4A2DB9702D007BDB6D /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;
+			productName = LaunchAtLogin;
+		};
+		DB716E4E2DB977AD007BDB6D /* Defaults */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB716E4D2DB977AD007BDB6D /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = Defaults;
+		};
+		DB716E502DB977AD007BDB6D /* DefaultsMacros */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB716E4D2DB977AD007BDB6D /* XCRemoteSwiftPackageReference "Defaults" */;
+			productName = DefaultsMacros;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

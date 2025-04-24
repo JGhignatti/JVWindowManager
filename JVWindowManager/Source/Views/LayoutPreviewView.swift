@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LayoutPreviewView: View {
-    var insetRectExpression: InsetRectExpression
+    var insetRect: InsetRect
 
     var body: some View {
         let screenSize =
@@ -21,7 +21,7 @@ struct LayoutPreviewView: View {
 
         let screenRect = CGRect(origin: .zero, size: screenSize)
         let previewRect: CGRect =
-            (try? insetRectExpression.evaluate(for: screenRect)) ?? screenRect
+            (try? insetRect.evaluate(for: screenRect)) ?? screenRect
 
         let scaledPreview = CGRect(
             x: previewRect.origin.x * scaleFactor,
@@ -45,10 +45,16 @@ struct LayoutPreviewView: View {
                 )
         }
         .frame(width: scaledSize.width, height: scaledSize.height)
-        .padding()
     }
 }
 
 #Preview {
-    LayoutPreviewView(insetRectExpression: .init("gap"))
+    LayoutPreviewView(
+        insetRect: .init(
+            top: "height / 8",
+            bottom: "height / 4",
+            left: "width / 8",
+            right: "width / 4"
+        )
+    )
 }

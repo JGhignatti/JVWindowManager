@@ -1,6 +1,15 @@
 {
-  "originHash" : "0ae5b72fa43e882594f227d8f72eb9826c50f9271fd7399a99b174bfefae395d",
+  "originHash" : "3f4d97e5ff459eb9aa8234f23cf221c79a678382b70c63f7b5ae6163f14d03d1",
   "pins" : [
+    {
+      "identity" : "defaults",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sindresorhus/Defaults",
+      "state" : {
+        "revision" : "00c82eff4550c87cf9c547d7e5493a6a97837061",
+        "version" : "9.0.3"
+      }
+    },
     {
       "identity" : "expression",
       "kind" : "remoteSourceControl",
@@ -11,12 +20,30 @@
       }
     },
     {
-      "identity" : "hotkey",
+      "identity" : "keyboardshortcuts",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/soffes/HotKey",
+      "location" : "https://github.com/sindresorhus/KeyboardShortcuts",
       "state" : {
-        "revision" : "a3cf605d7a96f6ff50e04fcb6dea6e2613cfcbe4",
-        "version" : "0.2.1"
+        "revision" : "045cf174010beb335fa1d2567d18c057b8787165",
+        "version" : "2.3.0"
+      }
+    },
+    {
+      "identity" : "launchatlogin-modern",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sindresorhus/LaunchAtLogin-Modern",
+      "state" : {
+        "revision" : "a04ec1c363be3627734f6dad757d82f5d4fa8fcc",
+        "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swiftlang/swift-syntax",
+      "state" : {
+        "revision" : "f99ae8aa18f0cf0d53481901f88a0991dc3bd4a2",
+        "version" : "601.0.1"
       }
     }
   ],
