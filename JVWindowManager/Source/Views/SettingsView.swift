@@ -5,7 +5,6 @@
 //  Created by João Ghignatti on 15/04/25.
 //
 
-import KeyboardShortcuts
 import SwiftUI
 
 private enum SettingsNavLink {
@@ -57,26 +56,7 @@ struct SettingsView: View {
                 }
             }
         )
-//        .onAppear {
-//            guard let window = NSApp.keyWindow else { return }
-
-//            disableGreenButton(for: window)
-//            bringToFront(for: window)
-//        }
     }
-
-//    private func bringToFront(for window: NSWindow) {
-//        DispatchQueue.main.async {
-//            window.makeKeyAndOrderFront(nil)
-//            NSApp.activate(ignoringOtherApps: true)
-//        }
-//    }
-//
-//    private func disableGreenButton(for window: NSWindow) {
-//        window.standardWindowButton(.zoomButton)?.isEnabled = false
-//        window.collectionBehavior.remove(.fullScreenPrimary)
-//        window.collectionBehavior.remove(.fullScreenAllowsTiling)
-//    }
 }
 
 #Preview {

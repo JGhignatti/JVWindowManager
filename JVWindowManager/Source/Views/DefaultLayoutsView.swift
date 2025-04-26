@@ -13,10 +13,13 @@ struct DefaultLayoutsView: View {
 
     var body: some View {
         ScrollView {
-            GroupBox(
-                label:
-                    Text("Default layouts").foregroundColor(.secondary)
-            ) {
+            HStack {
+                Text("Default layouts")
+                    .font(.title3)
+                Spacer()
+            }
+
+            GroupBox {
                 VStack {
                     ForEach(DefaultLayout.allCases) { layout in
                         HStack {
@@ -36,9 +39,11 @@ struct DefaultLayoutsView: View {
                                 }
                             } label: {
                                 Image(systemName: "questionmark.circle")
-                                    .foregroundStyle(.tertiary)
+                                    .font(.title2)
+                                    .foregroundStyle(.secondary)
                             }
                             .buttonStyle(.plain)
+                            .help("Preview layout")
                             .popover(
                                 isPresented: Binding(
                                     get: { activePopover == layout },
@@ -55,12 +60,11 @@ struct DefaultLayoutsView: View {
                                     LayoutPreviewView(
                                         insetRect: layout.insetRect
                                     )
-
                                 }
                                 .padding()
-                                .frame(width: 220)
                             }
                         }
+                        .padding(.vertical, 2)
 
                         if DefaultLayout.allCases.last?.rawValue
                             != layout.rawValue
@@ -68,7 +72,6 @@ struct DefaultLayoutsView: View {
                             Divider()
                         }
                     }
-                    .padding(.vertical, 2)
                 }
                 .padding(8)
             }

@@ -22,7 +22,7 @@ struct SizesBridge: Defaults.Bridge {
     typealias Value = Sizes
     typealias Serializable = [String: Int]
 
-    func serialize(_ value: Sizes?) -> [String: Int]? {
+    func serialize(_ value: Value?) -> Serializable? {
         guard let value else {
             return nil
         }
@@ -35,7 +35,7 @@ struct SizesBridge: Defaults.Bridge {
         ]
     }
 
-    func deserialize(_ object: [String: Int]?) -> Sizes? {
+    func deserialize(_ object: Serializable?) -> Value? {
         guard
             let object,
             let padding = object[SizesKey.padding.rawValue],

@@ -5,6 +5,7 @@
 //  Created by João Ghignatti on 15/04/25.
 //
 
+import Defaults
 import KeyboardShortcuts
 import SwiftUI
 
@@ -19,7 +20,9 @@ struct JVWindowManagerApp: App {
                 .accessibilityPermissionPrompt()
                 .background(
                     WindowAccessor { window in
-                        window.identifier = NSUserInterfaceItemIdentifier(K.WindowId.Settings)
+                        window.identifier = NSUserInterfaceItemIdentifier(
+                            K.WindowId.Settings
+                        )
                         window.delegate = windowDelegate
                     }
                 )
@@ -40,8 +43,26 @@ struct JVWindowManagerApp: App {
 @Observable
 private final class ShortcutState {
     init() {
+        Task {
+            for await _ in Defaults.updates(.customLayouts, initial: false) {
+                registerAllShortcuts()
+            }
+        }
+
+        registerAllShortcuts()
+    }
+
+    private func registerAllShortcuts() {
+        KeyboardShortcuts.removeAllHandlers()
+
         DefaultLayout.allCases.forEach { layout in
             KeyboardShortcuts.onKeyDown(for: layout.keyboardShortcutName) {
+                LayoutManager.shared.trigger(layout.insetRect)
+            }
+        }
+
+        Defaults[.customLayouts].forEach { layout in
+            KeyboardShortcuts.onKeyDown(for: layout.keyboardShortcutsName) {
                 LayoutManager.shared.trigger(layout.insetRect)
             }
         }

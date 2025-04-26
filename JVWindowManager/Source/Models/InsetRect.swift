@@ -9,7 +9,7 @@ import Defaults
 import Expression
 import Foundation
 
-struct InsetRect {
+struct InsetRect: Codable, Equatable, Hashable {
     static func constants(for frame: CGRect = .zero) -> [String: Double] {
         let gap = Double(Defaults[.sizes].gap)
 
@@ -31,6 +31,17 @@ struct InsetRect {
     var left: String
     var right: String
 
+    var valid: Bool {
+        let consts = InsetRect.constants()
+        
+        let topValid = (try? eval(top, consts)) != nil
+        let bottomValid = (try? eval(bottom, consts)) != nil
+        let leftValid = (try? eval(left, consts)) != nil
+        let rightValid = (try? eval(right, consts)) != nil
+        
+        return topValid && bottomValid && leftValid && rightValid
+    }
+
     init(_ amount: String) {
         self.init(top: amount, bottom: amount, left: amount, right: amount)
     }
@@ -49,16 +60,10 @@ struct InsetRect {
     func evaluate(for frame: CGRect) throws -> CGRect {
         let consts = InsetRect.constants(for: frame)
 
-        func eval(_ expression: String) throws -> CGFloat {
-            let exp = Expression(expression, constants: consts)
-
-            return CGFloat(try exp.evaluate())
-        }
-
-        let insetTop = try eval(top)
-        let insetBottom = try eval(bottom)
-        let insetLeft = try eval(left)
-        let insetRight = try eval(right)
+        let insetTop = try eval(top, consts)
+        let insetBottom = try eval(bottom, consts)
+        let insetLeft = try eval(left, consts)
+        let insetRight = try eval(right, consts)
 
         return frame.insetBy(
             top: insetTop,
@@ -66,5 +71,13 @@ struct InsetRect {
             bottom: insetBottom,
             left: insetLeft,
         )
+    }
+
+    private func eval(_ expression: String, _ constants: [String: Double])
+        throws -> CGFloat
+    {
+        let exp = Expression(expression, constants: constants)
+        
+        return CGFloat(try exp.evaluate())
     }
 }
