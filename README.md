@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="JVWindowManager/Assets.xcassets/AppIcon.appiconset/256.png">
+  <img src="JVWindowManager/Assets.xcassets/AppIcon.appiconset/256x256.png">
 </p>
 
 # JV Window Manager
