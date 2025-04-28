@@ -12,10 +12,12 @@
 		DB716E4C2DB9702D007BDB6D /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = DB716E4B2DB9702D007BDB6D /* LaunchAtLogin */; };
 		DB716E4F2DB977AD007BDB6D /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = DB716E4E2DB977AD007BDB6D /* Defaults */; };
 		DB716E512DB977AD007BDB6D /* DefaultsMacros in Frameworks */ = {isa = PBXBuildFile; productRef = DB716E502DB977AD007BDB6D /* DefaultsMacros */; };
+		DBB8231E2DBC9E5C000715A8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DBB8231D2DBC9E5C000715A8 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DB633B862DAEF35B00CE6940 /* JVWindowManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JVWindowManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBB8231D2DBC9E5C000715A8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -45,6 +47,7 @@
 		DB633B7D2DAEF35B00CE6940 = {
 			isa = PBXGroup;
 			children = (
+				DBB8231D2DBC9E5C000715A8 /* README.md */,
 				DB633B882DAEF35B00CE6940 /* JVWindowManager */,
 				DB633B872DAEF35B00CE6940 /* Products */,
 			);
@@ -133,6 +136,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBB8231E2DBC9E5C000715A8 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +280,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4UC57L326B;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "JV Window Manager";
@@ -286,6 +292,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jghignatti.JVWindowManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -304,6 +311,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4UC57L326B;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "JV Window Manager";
@@ -314,6 +323,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jghignatti.JVWindowManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
