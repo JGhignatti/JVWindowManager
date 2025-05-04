@@ -8,16 +8,20 @@
 import SwiftUI
 
 private enum SettingsNavLink {
-    case general, defaultLayouts, customLayouts, defaultActions, customActions
+    case about, general, defaultLayouts, customLayouts, defaultActions, customActions
 }
 
 struct SettingsView: View {
-    @State private var selectedItem: SettingsNavLink = .general
+    @State private var selectedItem: SettingsNavLink = .about
 
     var body: some View {
         NavigationSplitView(
             sidebar: {
                 List(selection: $selectedItem) {
+                    NavigationLink(value: SettingsNavLink.about) {
+                        Label("About", systemImage: "info.circle")
+                    }
+                    
                     NavigationLink(value: SettingsNavLink.general) {
                         Label("General", systemImage: "gear")
                     }
@@ -66,6 +70,8 @@ struct SettingsView: View {
             },
             detail: {
                 switch selectedItem {
+                case .about:
+                    AboutView()
                 case .general:
                     GeneralView()
                 case .defaultLayouts:

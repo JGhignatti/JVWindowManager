@@ -4,299 +4,98 @@
 
 # JV Window Manager
 
-_Customizable shortcut-based window manager app for macOS_
+_Highly customizable shortcut-based window manager for macOS_
 
----
+Position windows according to [_Layouts_](#layouts), or interact with them using [_Actions_](#actions).
 
-Once a shortcut is triggered, the window is resized to the corresponding Layout. Use one of the [Default layouts](#default-layouts) or create a [Custom layout](#custom-layouts).
+## Layouts
 
-## Settings
+Layouts define the window's new position and size relative to the screen they're on.
 
-|                                 | Description                                                                                            | Default value | Range     |
-|:--------------------------------|:-------------------------------------------------------------------------------------------------------|:--------------|:----------|
-| Padding                         | The space between the edge of the screen and the window's available space                              | `16`          | `0...50`  |
-| Gap                             | The space between windows                                                                              | `16`          | `0...50`  |
-| Stage manager                   | The left margin between the edge of the screen and the window's availbale  space for the stage manager | `180`         | `0...250` |
-| Peek                            | The space left on either left or right to peek the window behind                                       | `80`          | `0...100` |
+### Default layouts
 
-## Default layouts
+| Layout                 | Default shortcut                                                  |
+| :--------------------- | :---------------------------------------------------------------- |
+| Full screen            | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>return</kbd>        |
+| Top half               | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;▲&nbsp;</kbd> |
+| Bottom half            | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;▼&nbsp;</kbd> |
+| Left half              | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;◀&nbsp;</kbd> |
+| Right half             | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;▶&nbsp;</kbd> |
+| Top left corner        | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;U&nbsp;</kbd> |
+| Top right corner       | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;I&nbsp;</kbd> |
+| Bottom left corner     | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;J&nbsp;</kbd> |
+| Bottom right corner    | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;K&nbsp;</kbd> |
+| Vertical center half   | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;V&nbsp;</kbd> |
+| Horizontal center half | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;H&nbsp;</kbd> |
+| Peek left              | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;O&nbsp;</kbd> |
+| Peek right             | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;P&nbsp;</kbd> |
 
-_⏹️ = Supports stage manager with + <kbd>shift</kbd>_\
-_✏️ = Shortcut is customizable_\
-_⌫ = Shortcut can be disabled by clearing the shortcut_
+#### Stage manager
 
-| Layout                 | Default shortcut                                                  | ⏹️ ✏️ ⌫                  |
-|:-----------------------|:------------------------------------------------------------------|:-----------------------:|
-| Full screen            | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>return</kbd>        | &check; &check; &check; |
-| Top half               | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;▲&nbsp;</kbd> | &check; &check; &check; |
-| Bottom half            | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;▼&nbsp;</kbd> | &check; &check; &check; |
-| Left half              | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;◀&nbsp;</kbd> | &check; &check; &check; |
-| Right half             | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;▶&nbsp;</kbd> | &check; &check; &check; |
-| Top left corner        | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;U&nbsp;</kbd> | &check; &check; &check; |
-| Top right corner       | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;I&nbsp;</kbd> | &check; &check; &check; |
-| Bottom left corner     | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;J&nbsp;</kbd> | &check; &check; &check; |
-| Bottom right corner    | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;K&nbsp;</kbd> | &check; &check; &check; |
-| Vertical center half   | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;V&nbsp;</kbd> | &check; &check; &check; |
-| Horizontal center half | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;H&nbsp;</kbd> | &check; &check; &check; |
-| Peek left              | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;O&nbsp;</kbd> | &check; &check; &check; |
-| Peek right             | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>&nbsp;P&nbsp;</kbd> | &check; &check; &check; |
+All default layouts support Stage Manager. By holding <kbd>shift</kbd> along with the rest of the shortcut keys, the layout is applied, but it leaves space on the left side of the screen for the stage manager.
 
-### Stage manager support
-
-Shortcuts that support Stage Manager will leave space on the left side of the screen.
-
-To trigger the shortcut's Stage Manager version, hold <kbd>shift</kbd> along with the other modifiers.
-
-## Custom layouts
+### Custom layouts
 
 Custom layouts can be created and assigned to shortcuts.
 
-An inset configuration is required. Once the linked shortcut is triggered, the window's size is defined by taking the available screen frame and applying the inset configuration.
+An inset configuration is required. Once the linked shortcut is triggered, the window's new position and size are defined by taking the available screen frame and applying the inset configuration.
 
 Each inset side is an expression. To assist, the following variables are available:
 
-| Variable       | Description                                |
-|:---------------|:-------------------------------------------|
-| `width`        | The width of the window's available space  |
-| `height`       | The height of the window's available space |
-| `padding`      | The configured padding size                |
-| `gap`          | The configured gap size                    |
-| `halfGap`      | Half the configured gap size               |
-| `stageManager` | The configured stage manager size          |
-| `peek`         | The configured peek size                   |
+| Variable       | Description                              |
+| :------------- | :--------------------------------------- |
+| `width`        | The width of the available screen frame  |
+| `height`       | The height of the available screen frame |
+| `padding`      | The configured padding size              |
+| `gap`          | The configured gap size                  |
+| `halfGap`      | Half the configured gap size             |
+| `stageManager` | The configured stage manager size        |
+| `peek`         | The configured peek size                 |
 
-### Default layouts as inset configuration
+## Actions
 
-#### Full screen
+While layouts are relative to the available screen frame, actions are meant to interact with the window's position and size relative to the window's current position and size.
 
-| Side   | Expression |
-|:-------|:-----------|
-| Top    | `padding`  |
-| Bottom | `padding`  |
-| Left   | `padding`  |
-| Right  | `padding`  |
+### Default actions
 
-#### Top half
+| Action       | Default shortcut                                                                       |
+| :----------- | :------------------------------------------------------------------------------------- |
+| + All sides  | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>command</kbd> + <kbd>&nbsp;=&nbsp;</kbd> |
+| + Horizontal | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>command</kbd> + <kbd>&nbsp;D&nbsp;</kbd> |
+| + Vertical   | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>command</kbd> + <kbd>&nbsp;W&nbsp;</kbd> |
+| - All sides  | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>command</kbd> + <kbd>&nbsp;–&nbsp;</kbd> |
+| - Horizontal | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>command</kbd> + <kbd>&nbsp;A&nbsp;</kbd> |
+| - Vertical   | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>command</kbd> + <kbd>&nbsp;S&nbsp;</kbd> |
+| Move up      | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>command</kbd> + <kbd>&nbsp;▲&nbsp;</kbd> |
+| Move down    | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>command</kbd> + <kbd>&nbsp;▼&nbsp;</kbd> |
+| Move left    | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>command</kbd> + <kbd>&nbsp;◀&nbsp;</kbd> |
+| Move right   | <kbd>control</kbd> + <kbd>option</kbd> + <kbd>command</kbd> + <kbd>&nbsp;▶&nbsp;</kbd> |
 
-| Side   | Expression             |
-|:-------|:-----------------------|
-| Top    | `padding`              |
-| Bottom | `height / 2 + halfGap` |
-| Left   | `padding`              |
-| Right  | `padding`              |
+### Custom actions
 
-#### Bottom half
+Custom actions can be created and assigned to shortcuts.
 
-| Side   | Expression             |
-|:-------|:-----------------------|
-| Top    | `height / 2 + halfGap` |
-| Bottom | `padding`              |
-| Left   | `padding`              |
-| Right  | `padding`              |
+An action configuration is required. Once the linked shortcut is triggered, the window's new position and size are defined by taking the window's current position and size and applying the action configuration.
 
-#### Left half
+Each action side is an expression. To assist, the following variables are available:
 
-| Side   | Expression            |
-|:-------|:----------------------|
-| Top    | `padding`             |
-| Bottom | `padding`             |
-| Left   | `padding`             |
-| Right  | `width / 2 + halfGap` |
+| Variable       | Description                       |
+| :------------- | :-------------------------------- |
+| `width`        | The width of the window           |
+| `height`       | The height of the window          |
+| `padding`      | The configured padding size       |
+| `gap`          | The configured gap size           |
+| `halfGap`      | Half the configured gap size      |
+| `stageManager` | The configured stage manager size |
+| `peek`         | The configured peek size          |
+| `step`         | The configured step size          |
 
-#### Right half
+## Settings
 
-| Side   | Expression            |
-|:-------|:----------------------|
-| Top    | `padding`             |
-| Bottom | `padding`             |
-| Left   | `width / 2 + halfGap` |
-| Right  | `padding`             |
-
-#### Top left corner
-
-| Side   | Expression             |
-|:-------|:-----------------------|
-| Top    | `padding`              |
-| Bottom | `height / 2 + halfGap` |
-| Left   | `padding`              |
-| Right  | `width / 2 + halfGap`  |
-
-#### Top right corner
-
-| Side   | Expression             |
-|:-------|:-----------------------|
-| Top    | `padding`              |
-| Bottom | `height / 2 + halfGap` |
-| Left   | `width / 2 + halfGap`  |
-| Right  | `padding`              |
-
-#### Bottom left corner
-
-| Side   | Expression             |
-|:-------|:-----------------------|
-| Top    | `height / 2 + halfGap` |
-| Bottom | `padding`              |
-| Left   | `padding`              |
-| Right  | `width / 2 + halfGap`  |
-
-#### Bottom right corner
-
-| Side   | Expression             |
-|:-------|:-----------------------|
-| Top    | `height / 2 + halfGap` |
-| Bottom | `padding`              |
-| Left   | `width / 2 + halfGap`  |
-| Right  | `padding`              |
-
-#### Vertical center half
-
-| Side   | Expression             |
-|:-------|:-----------------------|
-| Top    | `height / 4 + halfGap` |
-| Bottom | `height / 4 + halfGap` |
-| Left   | `padding`              |
-| Right  | `padding`              |
-
-#### Horizontal center half
-
-| Side   | Expression            |
-|:-------|:----------------------|
-| Top    | `padding`             |
-| Bottom | `padding`             |
-| Left   | `width / 4 + halfGap` |
-| Right  | `width / 4 + halfGap` |
-
-#### Peek left
-
-| Side   | Expression |
-|:-------|:-----------|
-| Top    | `padding`  |
-| Bottom | `padding`  |
-| Left   | `peek`     |
-| Right  | `padding`  |
-
-#### Peek left
-
-| Side   | Expression |
-|:-------|:-----------|
-| Top    | `padding`  |
-| Bottom | `padding`  |
-| Left   | `padding`  |
-| Right  | `peek`     |
-
-#### Stage manager full screen
-
-| Side   | Expression     |
-|:-------|:---------------|
-| Top    | `padding`      |
-| Bottom | `padding`      |
-| Left   | `stageManager` |
-| Right  | `padding`      |
-
-#### Stage manager top half
-
-| Side   | Expression             |
-|:-------|:-----------------------|
-| Top    | `padding`              |
-| Bottom | `height / 2 + halfGap` |
-| Left   | `stageManager`         |
-| Right  | `padding`              |
-
-#### Stage manager bottom half
-
-| Side   | Expression             |
-|:-------|:-----------------------|
-| Top    | `height / 2 + halfGap` |
-| Bottom | `padding`              |
-| Left   | `stageManager`         |
-| Right  | `padding`              |
-
-#### Stage manager left half
-
-| Side   | Expression                             |
-|:-------|:---------------------------------------|
-| Top    | `padding`                              |
-| Bottom | `padding`                              |
-| Left   | `stageManager`                         |
-| Right  | `(width - stageManager) / 2 + halfGap` |
-
-#### Stage manager right half
-
-| Side   | Expression                                          |
-|:-------|:----------------------------------------------------|
-| Top    | `padding`                                           |
-| Bottom | `padding`                                           |
-| Left   | `stageManager (width - stageManager) / 2 + halfGap` |
-| Right  | `padding`                                           |
-
-#### Stage manager top left corner
-
-| Side   | Expression             |
-|:-------|:-----------------------|
-| Top    | `padding`              |
-| Bottom | `height / 2 + halfGap` |
-| Left   | `stageManager`              |
-| Right  | `(width - stageManager) / 2 + halfGap` |
-
-#### Stage manager top right corner
-
-| Side   | Expression                                            |
-|:-------|:------------------------------------------------------|
-| Top    | `padding`                                             |
-| Bottom | `height / 2 + halfGap`                                |
-| Left   | `stageManager + (width - stageManager) / 2 + halfGap` |
-| Right  | `padding`                                             |
-
-#### Stage manager bottom left corner
-
-| Side   | Expression                             |
-|:-------|:---------------------------------------|
-| Top    | `height / 2 + halfGap`                 |
-| Bottom | `padding`                              |
-| Left   | `stageManager`                         |
-| Right  | `(width - stageManager) / 2 + halfGap` |
-
-#### Stage manager bottom right corner
-
-| Side   | Expression                                            |
-|:-------|:------------------------------------------------------|
-| Top    | `height / 2 + halfGap`                                |
-| Bottom | `padding`                                             |
-| Left   | `stageManager + (width - stageManager) / 2 + halfGap` |
-| Right  | `padding`                                             |
-
-#### Stage manager vertical center half
-
-| Side   | Expression             |
-|:-------|:-----------------------|
-| Top    | `height / 4 + halfGap` |
-| Bottom | `height / 4 + halfGap` |
-| Left   | `stageManager`         |
-| Right  | `padding`              |
-
-#### Stage manager horizontal center half
-
-| Side   | Expression                                            |
-|:-------|:------------------------------------------------------|
-| Top    | `padding`                                             |
-| Bottom | `padding`                                             |
-| Left   | `stageManager + (width - stageManager) / 4 + halfGap` |
-| Right  | `(width - stageManager) / 4 + halfGap`                |
-
-#### Peek left
-
-| Side   | Expression            |
-|:-------|:----------------------|
-| Top    | `padding`             |
-| Bottom | `padding`             |
-| Left   | `stageManager + peek` |
-| Right  | `padding`             |
-
-#### Peek left
-
-| Side   | Expression     |
-|:-------|:---------------|
-| Top    | `padding`      |
-| Bottom | `padding`      |
-| Left   | `stageManager` |
-| Right  | `peek`         |
+|               | Description                                                                                            | Default value | Range     |
+| :------------ | :----------------------------------------------------------------------------------------------------- | :------------ | :-------- |
+| Padding       | The space between the edge of the screen and the window's available space                              | `16`          | `0...50`  |
+| Gap           | The space between windows                                                                              | `16`          | `0...50`  |
+| Stage manager | The left margin for the stage manager, between the edge of the screen and the window's available space | `180`         | `0...250` |
+| Peek          | The space left on either left or right to peek the window behind                                       | `80`          | `0...100` |
+| Step          | A configurable size that can be used as a step size for repeating actions                              | `16`          | `0...200` |
