@@ -8,6 +8,10 @@ _Highly customizable shortcut-based window manager for macOS_
 
 Position windows according to [_Layouts_](#layouts), or interact with them using [_Actions_](#actions).
 
+## Installation
+
+Check the step-by-step in the latest [release](https://github.com/JGhignatti/JVWindowManager/releases).
+
 ## Layouts
 
 Layouts define the window's new position and size relative to the screen they're on.
