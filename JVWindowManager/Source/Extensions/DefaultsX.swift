@@ -8,12 +8,15 @@
 import Defaults
 
 extension Defaults.Keys {
-    static let sizes = Defaults.Key<Sizes>(
-        "sizes",
-        default: Sizes(padding: 16, gap: 16, stageManager: 180, peek: 80)
-    )
+    static let sizes = Defaults.Key<Sizes>("sizes", default: Sizes.default)
+
     static let customLayouts = Defaults.Key<[CustomLayout]>(
         "customLayouts",
+        default: []
+    )
+
+    static let customActions = Defaults.Key<[CustomAction]>(
+        "customActions",
         default: []
     )
 }

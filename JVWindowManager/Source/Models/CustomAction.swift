@@ -1,32 +1,32 @@
 //
-//  CustomLayout.swift
+//  CustomAction.swift
 //  JVWindowManager
 //
-//  Created by João Ghignatti on 24/04/25.
+//  Created by João Ghignatti on 30/04/25.
 //
 
 import Defaults
 import Foundation
 import KeyboardShortcuts
 
-struct CustomLayout {
+struct CustomAction {
     let id: UUID
     let name: String
-    let insetRect: InsetRect
-    
+    let actionRect: ActionRect
+
     var keyboardShortcutsName: KeyboardShortcuts.Name {
         .init(id.uuidString)
     }
 }
 
-extension CustomLayout: Defaults.Serializable {
-    static let bridge = CustomLayoutBridge()
+extension CustomAction: Defaults.Serializable {
+    static let bridge = CustomActionBridge()
 }
 
-extension CustomLayout: Identifiable, Codable, Equatable, Hashable {}
+extension CustomAction: Identifiable, Codable, Equatable, Hashable {}
 
-struct CustomLayoutBridge: Defaults.Bridge {
-    typealias Value = CustomLayout
+struct CustomActionBridge: Defaults.Bridge {
+    typealias Value = CustomAction
     typealias Serializable = Data
 
     func serialize(_ value: Value?) -> Serializable? {

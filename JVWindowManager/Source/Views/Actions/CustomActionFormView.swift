@@ -1,47 +1,47 @@
 //
-//  CustomLayoutFormView.swift
+//  CustomActionFormView.swift
 //  JVWindowManager
 //
-//  Created by João Ghignatti on 24/04/25.
+//  Created by João Ghignatti on 02/05/25.
 //
 
 import KeyboardShortcuts
 import SwiftUI
 
-struct CustomLayoutFormView: View {
+struct CustomActionFormView: View {
     @Environment(\.dismiss) private var dismiss
 
     @State private var name: String
-    @State private var insetRect: InsetRect
+    @State private var actionRect: ActionRect
     @State private var shortcut: KeyboardShortcuts.Shortcut?
 
     @State private var showVariablesPopover = false
 
-    private let existing: CustomLayout?
-    private let onSave: (CustomLayout) -> Void
+    private let existing: CustomAction?
+    private let onSave: (CustomAction) -> Void
 
     private var tmpKeyboardShortcutsName = KeyboardShortcuts.Name(
-        UUID().uuidString
+        K.tmpKeyboardShortcutsName
     )
 
     init(
-        existing: CustomLayout? = nil,
-        onSave: @escaping (CustomLayout) -> Void
+        existing: CustomAction? = nil,
+        onSave: @escaping (CustomAction) -> Void
     ) {
         _name = State(initialValue: existing?.name ?? "")
-        _insetRect = State(
-            initialValue: existing?.insetRect
+        _actionRect = State(
+            initialValue: existing?.actionRect
                 ?? .init(
-                    top: "height / 8 + halfGap",
-                    bottom: "height / 4 + gap",
-                    left: "stageManager",
-                    right: "width / 4"
+                    width: "width + step * 4",
+                    height: "height",
+                    x: "originX",
+                    y: "originY + step * 2"
                 )
         )
 
-        if let layout = existing,
+        if let action = existing,
             let shortcut = KeyboardShortcuts.getShortcut(
-                for: layout.keyboardShortcutsName
+                for: action.keyboardShortcutsName
             )
         {
             _shortcut = State(initialValue: shortcut)
@@ -58,7 +58,7 @@ struct CustomLayoutFormView: View {
                 HStack {
                     Text(
                         existing == nil
-                            ? "Create custom layout" : "Edit custom layout"
+                            ? "Create custom action" : "Edit custom action"
                     )
                     .font(.title3)
                     Spacer()
@@ -68,7 +68,7 @@ struct CustomLayoutFormView: View {
                     HStack {
                         Text("Name")
                         Spacer(minLength: 16)
-                        TextField("Layout name", text: $name)
+                        TextField("Action name", text: $name)
                             .textFieldStyle(.plain)
                             .bold()
                             .font(.title3)
@@ -80,50 +80,52 @@ struct CustomLayoutFormView: View {
                 GroupBox {
                     VStack {
                         HStack {
-                            Text("Inset configuration")
+                            Text("Action configuration")
                             Spacer()
                         }
+
                         HStack(spacing: 20) {
                             VStack {
                                 Text("Preview")
-                                LayoutPreviewView(
-                                    insetRect: insetRect
-                                )
+                                ActionPreviewView(actionRect: actionRect)
                             }
 
                             VStack {
                                 VStack(alignment: .leading, spacing: 4) {
-                                    Text("Top")
+                                    Text("Width")
                                         .foregroundColor(.secondary)
                                         .padding(.leading, 8)
-                                    TextField("Top", text: $insetRect.top)
+                                    TextField("Width", text: $actionRect.width)
                                         .textFieldStyle(.roundedBorder)
                                 }
 
                                 VStack(alignment: .leading, spacing: 4) {
-                                    Text("Bottom")
+                                    Text("Height")
                                         .foregroundColor(.secondary)
                                         .padding(.leading, 8)
-                                    TextField("Bottom", text: $insetRect.bottom)
-                                        .textFieldStyle(.roundedBorder)
+                                    TextField(
+                                        "Height",
+                                        text: $actionRect.height
+                                    )
+                                    .textFieldStyle(.roundedBorder)
                                 }
-
+                                
                                 VStack(alignment: .leading, spacing: 4) {
-                                    Text("Left")
+                                    Text("X")
                                         .foregroundColor(.secondary)
                                         .padding(.leading, 8)
-                                    TextField("Left", text: $insetRect.left)
+                                    TextField("X", text: $actionRect.x)
                                         .textFieldStyle(.roundedBorder)
                                 }
-
+                                
                                 VStack(alignment: .leading, spacing: 4) {
-                                    Text("Right")
+                                    Text("Y")
                                         .foregroundColor(.secondary)
                                         .padding(.leading, 8)
-                                    TextField("Right", text: $insetRect.right)
+                                    TextField("Y", text: $actionRect.y)
                                         .textFieldStyle(.roundedBorder)
                                 }
-
+                                
                                 HStack {
                                     Spacer()
                                     Button("Variables") {
@@ -143,7 +145,7 @@ struct CustomLayoutFormView: View {
                                                 spacing: 4
                                             ) {
                                                 Text("Variables")
-
+                                                
                                                 HStack(
                                                     alignment: .top,
                                                     spacing: 8
@@ -156,10 +158,26 @@ struct CustomLayoutFormView: View {
                                                     Text("height").inlineCode(
                                                         .footnote
                                                     )
-                                                    Text("The screen size")
+                                                    Text("The window size")
                                                 }
                                                 .padding(.leading)
-
+                                                
+                                                HStack(
+                                                    alignment: .top,
+                                                    spacing: 8
+                                                ) {
+                                                    Text("•")
+                                                    Text("originX").inlineCode(
+                                                        .footnote
+                                                    )
+                                                    Text("and")
+                                                    Text("originY").inlineCode(
+                                                        .footnote
+                                                    )
+                                                    Text("The window position")
+                                                }
+                                                .padding(.leading)
+                                                
                                                 HStack(
                                                     alignment: .top,
                                                     spacing: 8
@@ -218,8 +236,22 @@ struct CustomLayoutFormView: View {
                                                     )
                                                 }
                                                 .padding(.leading)
+                                                
+                                                HStack(
+                                                    alignment: .top,
+                                                    spacing: 8
+                                                ) {
+                                                    Text("•")
+                                                    Text("step").inlineCode(
+                                                        .footnote
+                                                    )
+                                                    Text(
+                                                        "The configured step size"
+                                                    )
+                                                }
+                                                .padding(.leading)
                                             }
-
+                                            
                                             Spacer()
                                         }
                                         .padding()
@@ -234,7 +266,7 @@ struct CustomLayoutFormView: View {
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
                 }
-
+                
                 GroupBox {
                     HStack {
                         Text("Shortcut")
@@ -266,30 +298,31 @@ struct CustomLayoutFormView: View {
                     var id: UUID
                     if let existing = existing {
                         id = existing.id
-                        
-                        KeyboardShortcuts.Name(id.uuidString).shortcut = shortcut
+
+                        KeyboardShortcuts.Name(id.uuidString).shortcut =
+                            shortcut
                     } else {
                         id = UUID()
-                        
+
                         let _ = KeyboardShortcuts.Name(
                             id.uuidString,
                             default: shortcut
                         )
                     }
 
-                    let layout = CustomLayout(
+                    let action = CustomAction(
                         id: id,
                         name: name,
-                        insetRect: insetRect
+                        actionRect: actionRect
                     )
 
-                    onSave(layout)
+                    onSave(action)
                     dismiss()
                 }
                 .buttonStyle(.borderedProminent)
                 .disabled(
                     name.trimmingCharacters(in: .whitespaces).isEmpty
-                        || !insetRect.valid || shortcut == nil
+                        || !actionRect.valid || shortcut == nil
                 )
             }
             .padding()
@@ -301,5 +334,5 @@ struct CustomLayoutFormView: View {
 }
 
 #Preview {
-    CustomLayoutFormView { _ in }
+    CustomActionFormView { _ in }
 }

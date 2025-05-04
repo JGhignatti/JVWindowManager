@@ -13,7 +13,7 @@ struct LayoutPreviewView: View {
     var body: some View {
         let screenSize =
             NSScreen.main?.frame.size ?? CGSize(width: 1440, height: 900)
-        let scaleFactor = 200 / max(screenSize.width, screenSize.height)
+        let scaleFactor = 300 / max(screenSize.width, screenSize.height)
         let scaledSize = CGSize(
             width: screenSize.width * scaleFactor,
             height: screenSize.height * scaleFactor
@@ -22,7 +22,6 @@ struct LayoutPreviewView: View {
         let screenRect = CGRect(origin: .zero, size: screenSize)
         let previewRect: CGRect =
             (try? insetRect.evaluate(for: screenRect)) ?? screenRect
-
         let scaledPreview = CGRect(
             x: previewRect.origin.x * scaleFactor,
             y: previewRect.origin.y * scaleFactor,

@@ -1,16 +1,15 @@
 //
-//  CustomLayoutsRowView.swift
+//  CustomActionsRowView.swift
 //  JVWindowManager
 //
-//  Created by João Ghignatti on 26/04/25.
+//  Created by João Ghignatti on 30/04/25.
 //
 
-import Defaults
 import KeyboardShortcuts
 import SwiftUI
 
-struct CustomLayoutsRowView: View {
-    let layout: CustomLayout
+struct CustomActionsRowView: View {
+    let action: CustomAction
     let onEdit: () -> Void
     let onDelete: () -> Void
 
@@ -19,12 +18,12 @@ struct CustomLayoutsRowView: View {
 
     var body: some View {
         HStack {
-            Text(layout.name)
+            Text(action.name)
 
             Spacer()
 
             KeyboardShortcuts.Recorder(
-                for: layout.keyboardShortcutsName
+                for: action.keyboardShortcutsName
             )
 
             Button {
@@ -47,7 +46,7 @@ struct CustomLayoutsRowView: View {
             .buttonStyle(.plain)
             .help("Delete")
             .alert(
-                "Are you sure you want to remove this layout?",
+                "Are you sure you want to delete this action?",
                 isPresented: $showDeleteAlert
             ) {
                 Button("Delete", role: .destructive) {
@@ -69,16 +68,14 @@ struct CustomLayoutsRowView: View {
                     .foregroundStyle(.secondary)
             }
             .buttonStyle(.plain)
-            .help("Preview layout")
+            .help("Preview action")
             .popover(
                 isPresented: $showPreviewPopover,
                 arrowEdge: .bottom
             ) {
                 VStack {
                     Text("Preview")
-                    LayoutPreviewView(
-                        insetRect: layout.insetRect
-                    )
+                    ActionPreviewView(actionRect: action.actionRect)
                 }
                 .padding()
             }

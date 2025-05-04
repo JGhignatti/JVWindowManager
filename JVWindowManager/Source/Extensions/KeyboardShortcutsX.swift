@@ -8,7 +8,7 @@
 import KeyboardShortcuts
 
 extension KeyboardShortcuts.Name {
-    // MARK: Default shortcuts
+    // MARK: Default layouts
     static let defaultFullScreen = Self(
         "defaultFullScreen",
         default: .init(.return, modifiers: [.control, .option])
@@ -61,8 +61,6 @@ extension KeyboardShortcuts.Name {
         "defaultPeekRight",
         default: .init(.p, modifiers: [.control, .option])
     )
-
-    // MARK: Default Stage Manager shortcuts
     static let defaultSMFullScreen = Self(
         "defaultSMFullScreen",
         default: .init(.return, modifiers: [.control, .option, .shift])
@@ -114,5 +112,47 @@ extension KeyboardShortcuts.Name {
     static let defaultSMPeekRight = Self(
         "defaultSMPeekRight",
         default: .init(.p, modifiers: [.control, .option, .shift])
+    )
+
+    // MARK: Default actions
+    static let defaultPlusFull = Self(
+        "defaultPlusFull",
+        default: .init(.equal, modifiers: [.control, .option, .command])
+    )
+    static let defaultPlusHorizontal = Self(
+        "defaultPlusHorizontal",
+        default: .init(.d, modifiers: [.control, .option, .command])
+    )
+    static let defaultPlusVertical = Self(
+        "defaultPlusVertical",
+        default: .init(.w, modifiers: [.control, .option, .command])
+    )
+    static let defaultMinusFull = Self(
+        "defaultMinusFull",
+        default: .init(.minus, modifiers: [.control, .option, .command])
+    )
+    static let defaultMinusHorizontal = Self(
+        "defaultMinusHorizontal",
+        default: .init(.a, modifiers: [.control, .option, .command])
+    )
+    static let defaultMinusVertical = Self(
+        "defaultMinusVertical",
+        default: .init(.s, modifiers: [.control, .option, .command])
+    )
+    static let defaultMoveUp = Self(
+        "defaultMoveUp",
+        default: .init(.upArrow, modifiers: [.control, .option, .command])
+    )
+    static let defaultMoveDown = Self(
+        "defaultMoveDown",
+        default: .init(.downArrow, modifiers: [.control, .option, .command])
+    )
+    static let defaultMoveLeft = Self(
+        "defaultMoveLeft",
+        default: .init(.leftArrow, modifiers: [.control, .option, .command])
+    )
+    static let defaultMoveRight = Self(
+        "defaultMoveRight",
+        default: .init(.rightArrow, modifiers: [.control, .option, .command])
     )
 }

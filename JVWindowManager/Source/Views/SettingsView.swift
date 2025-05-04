@@ -8,7 +8,7 @@
 import SwiftUI
 
 private enum SettingsNavLink {
-    case general, defaultLayouts, customLayouts
+    case general, defaultLayouts, customLayouts, defaultActions, customActions
 }
 
 struct SettingsView: View {
@@ -41,6 +41,25 @@ struct SettingsView: View {
                                 "inset.filled.center.rectangle.badge.plus"
                         )
                     }
+                    
+                    Text("Actions")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                        .padding(.top, 8)
+
+                    NavigationLink(value: SettingsNavLink.defaultActions) {
+                        Label(
+                            "Default",
+                            systemImage: "viewfinder"
+                        )
+                    }
+                    
+                    NavigationLink(value: SettingsNavLink.customActions) {
+                        Label(
+                            "Custom",
+                            systemImage: "plus.viewfinder"
+                        )
+                    }
                 }
                 .frame(minWidth: 180)
                 .padding(.top)
@@ -53,6 +72,10 @@ struct SettingsView: View {
                     DefaultLayoutsView()
                 case .customLayouts:
                     CustomLayoutsView()
+                case .defaultActions:
+                    DefaultActionsView()
+                case .customActions:
+                    CustomActionsView()
                 }
             }
         )

@@ -123,6 +123,28 @@ struct GeneralView: View {
                             .frame(width: 40, alignment: .trailing)
                     }
                     .padding(.vertical, 4)
+                    
+                    Divider()
+
+                    HStack {
+                        Text("Step")
+                            .frame(width: 120, alignment: .leading)
+                        Slider(
+                            value: Binding<Double>(
+                                get: {
+                                    Double(sizes.step)
+                                },
+                                set: {
+                                    sizes.step = Int($0)
+                                }
+                            ),
+                            in: 0...200
+                        )
+                        .controlSize(.mini)
+                        Text("\(sizes.step)")
+                            .frame(width: 40, alignment: .trailing)
+                    }
+                    .padding(.vertical, 4)
                 }
                 .padding(8)
             }

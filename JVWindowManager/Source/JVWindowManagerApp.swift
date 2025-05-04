@@ -66,6 +66,18 @@ private final class ShortcutState {
                 LayoutManager.shared.trigger(layout.insetRect)
             }
         }
+        
+        DefaultAction.allCases.forEach { action in
+            KeyboardShortcuts.onKeyDown(for: action.keyboardShortcutName) {
+                ActionManager.shared.trigger(action.actionRect)
+            }
+        }
+        
+        Defaults[.customActions].forEach { action in
+            KeyboardShortcuts.onKeyDown(for: action.keyboardShortcutsName) {
+                ActionManager.shared.trigger(action.actionRect)
+            }
+        }
     }
 }
 

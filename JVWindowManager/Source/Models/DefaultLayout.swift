@@ -7,15 +7,14 @@
 
 import KeyboardShortcuts
 
-enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
-{
+enum DefaultLayout: String, CaseIterable {
     case fullScreen
 
     case topHalf
     case bottomHalf
     case leftHalf
     case rightHalf
-    
+
     case topLeftCorner
     case topRightCorner
     case bottomLeftCorner
@@ -33,7 +32,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
     case smBottomHalf
     case smLeftHalf
     case smRightHalf
-    
+
     case smTopLeftCorner
     case smTopRightCorner
     case smBottomLeftCorner
@@ -44,67 +43,6 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
 
     case smPeekLeft
     case smPeekRight
-
-    var id: String {
-        rawValue
-    }
-
-    var description: String {
-        switch self {
-        case .fullScreen:
-            return "Full Screen"
-        case .topHalf:
-            return "Top Half"
-        case .bottomHalf:
-            return "Bottom Half"
-        case .leftHalf:
-            return "Left Half"
-        case .rightHalf:
-            return "Right Half"
-        case .topLeftCorner:
-            return "Top Left Corner"
-        case .topRightCorner:
-            return "Top Right Corner"
-        case .bottomLeftCorner:
-            return "Bottom Left Corner"
-        case .bottomRightCorner:
-            return "Bottom Right Corner"
-        case .vCenterHalf:
-            return "Vertical Center Half"
-        case .hCenterHalf:
-            return "Horizontal Center Half"
-        case .peekLeft:
-            return "Peek Left"
-        case .peekRight:
-            return "Peek Right"
-        case .smFullScreen:
-            return "Stage Manager Full Screen"
-        case .smTopHalf:
-            return "Stage Manager Top Half"
-        case .smBottomHalf:
-            return "Stage Manager Bottom Half"
-        case .smLeftHalf:
-            return "Stage Manager Left Half"
-        case .smRightHalf:
-            return "Stage Manager Right Half"
-        case .smTopLeftCorner:
-            return "Stage Manager Top Left Corner"
-        case .smTopRightCorner:
-            return "Stage Manager Top Right Corner"
-        case .smBottomLeftCorner:
-            return "Stage Manager Bottom Left Corner"
-        case .smBottomRightCorner:
-            return "Stage Manager Bottom Right Corner"
-        case .smVCenterHalf:
-            return "Stage Manager Vert. Center Half"
-        case .smHCenterHalf:
-            return "Stage Manager Hor. Center Half"
-        case .smPeekLeft:
-            return "Stage Manager Peek Left"
-        case .smPeekRight:
-            return "Stage Manager Peek Right"
-        }
-    }
 
     var keyboardShortcutName: KeyboardShortcuts.Name {
         switch self {
@@ -162,12 +100,12 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
             return .defaultSMPeekRight
         }
     }
-    
+
     var insetRect: InsetRect {
         switch self {
         case .fullScreen:
             return .init("padding")
-            
+
         case .topHalf:
             return .init(
                 top: "padding",
@@ -175,7 +113,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "padding",
                 right: "padding"
             )
-            
+
         case .bottomHalf:
             return .init(
                 top: "height / 2 + halfGap",
@@ -183,7 +121,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "padding",
                 right: "padding"
             )
-            
+
         case .leftHalf:
             return .init(
                 top: "padding",
@@ -191,7 +129,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "padding",
                 right: "width / 2 + halfGap"
             )
-            
+
         case .rightHalf:
             return .init(
                 top: "padding",
@@ -199,7 +137,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "width / 2 + halfGap",
                 right: "padding"
             )
-            
+
         case .topLeftCorner:
             return .init(
                 top: "padding",
@@ -207,7 +145,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "padding",
                 right: "width / 2 + halfGap"
             )
-            
+
         case .topRightCorner:
             return .init(
                 top: "padding",
@@ -215,7 +153,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "width / 2 + halfGap",
                 right: "padding"
             )
-            
+
         case .bottomLeftCorner:
             return .init(
                 top: "height / 2 + halfGap",
@@ -223,7 +161,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "padding",
                 right: "width / 2 + halfGap"
             )
-            
+
         case .bottomRightCorner:
             return .init(
                 top: "height / 2 + halfGap",
@@ -231,13 +169,13 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "width / 2 + halfGap",
                 right: "padding"
             )
-            
+
         case .vCenterHalf:
             return .init(dx: "padding", dy: "height / 4 + halfGap")
-            
+
         case .hCenterHalf:
             return .init(dx: "width / 4 + halfGap", dy: "padding")
-            
+
         case .peekLeft:
             return .init(
                 top: "padding",
@@ -245,7 +183,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "peek",
                 right: "padding"
             )
-            
+
         case .peekRight:
             return .init(
                 top: "padding",
@@ -253,7 +191,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "padding",
                 right: "peek"
             )
-            
+
         case .smFullScreen:
             return .init(
                 top: "padding",
@@ -261,7 +199,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "stageManager",
                 right: "padding"
             )
-            
+
         case .smTopHalf:
             return .init(
                 top: "padding",
@@ -269,7 +207,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "stageManager",
                 right: "padding"
             )
-            
+
         case .smBottomHalf:
             return .init(
                 top: "height / 2 + halfGap",
@@ -277,7 +215,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "stageManager",
                 right: "padding"
             )
-            
+
         case .smLeftHalf:
             return .init(
                 top: "padding",
@@ -285,7 +223,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "stageManager",
                 right: "(width - stageManager) / 2 + halfGap"
             )
-            
+
         case .smRightHalf:
             return .init(
                 top: "padding",
@@ -293,7 +231,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "stageManager + (width - stageManager) / 2 + halfGap",
                 right: "padding"
             )
-            
+
         case .smTopLeftCorner:
             return .init(
                 top: "padding",
@@ -301,7 +239,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "stageManager",
                 right: "(width - stageManager) / 2 + halfGap"
             )
-            
+
         case .smTopRightCorner:
             return .init(
                 top: "padding",
@@ -309,7 +247,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "stageManager + (width - stageManager) / 2 + halfGap",
                 right: "padding"
             )
-            
+
         case .smBottomLeftCorner:
             return .init(
                 top: "height / 2 + halfGap",
@@ -317,7 +255,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "stageManager",
                 right: "(width - stageManager) / 2 + halfGap"
             )
-            
+
         case .smBottomRightCorner:
             return .init(
                 top: "height / 2 + halfGap",
@@ -325,7 +263,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "stageManager + (width - stageManager) / 2 + halfGap",
                 right: "padding"
             )
-            
+
         case .smVCenterHalf:
             return .init(
                 top: "height / 4 + halfGap",
@@ -333,7 +271,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "stageManager",
                 right: "padding"
             )
-            
+
         case .smHCenterHalf:
             return .init(
                 top: "padding",
@@ -341,7 +279,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "stageManager + (width - stageManager) / 4 + halfGap",
                 right: "(width - stageManager) / 4 + halfGap"
             )
-            
+
         case .smPeekLeft:
             return .init(
                 top: "padding",
@@ -349,7 +287,7 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "stageManager + peek",
                 right: "padding"
             )
-            
+
         case .smPeekRight:
             return .init(
                 top: "padding",
@@ -357,6 +295,71 @@ enum DefaultLayout: String, CaseIterable, CustomStringConvertible, Identifiable
                 left: "stageManager",
                 right: "peek"
             )
+        }
+    }
+}
+
+extension DefaultLayout: Identifiable {
+    var id: String {
+        rawValue
+    }
+}
+
+extension DefaultLayout: CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .fullScreen:
+            return "Full Screen"
+        case .topHalf:
+            return "Top Half"
+        case .bottomHalf:
+            return "Bottom Half"
+        case .leftHalf:
+            return "Left Half"
+        case .rightHalf:
+            return "Right Half"
+        case .topLeftCorner:
+            return "Top Left Corner"
+        case .topRightCorner:
+            return "Top Right Corner"
+        case .bottomLeftCorner:
+            return "Bottom Left Corner"
+        case .bottomRightCorner:
+            return "Bottom Right Corner"
+        case .vCenterHalf:
+            return "Vertical Center Half"
+        case .hCenterHalf:
+            return "Horizontal Center Half"
+        case .peekLeft:
+            return "Peek Left"
+        case .peekRight:
+            return "Peek Right"
+        case .smFullScreen:
+            return "Stage Manager Full Screen"
+        case .smTopHalf:
+            return "Stage Manager Top Half"
+        case .smBottomHalf:
+            return "Stage Manager Bottom Half"
+        case .smLeftHalf:
+            return "Stage Manager Left Half"
+        case .smRightHalf:
+            return "Stage Manager Right Half"
+        case .smTopLeftCorner:
+            return "Stage Manager Top Left Corner"
+        case .smTopRightCorner:
+            return "Stage Manager Top Right Corner"
+        case .smBottomLeftCorner:
+            return "Stage Manager Bottom Left Corner"
+        case .smBottomRightCorner:
+            return "Stage Manager Bottom Right Corner"
+        case .smVCenterHalf:
+            return "Stage Manager Vert. Center Half"
+        case .smHCenterHalf:
+            return "Stage Manager Hor. Center Half"
+        case .smPeekLeft:
+            return "Stage Manager Peek Left"
+        case .smPeekRight:
+            return "Stage Manager Peek Right"
         }
     }
 }

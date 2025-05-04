@@ -1,14 +1,14 @@
 //
-//  LayoutManager.swift
+//  ActionManager.swift
 //  JVWindowManager
 //
-//  Created by João Ghignatti on 15/04/25.
+//  Created by João Ghignatti on 29/04/25.
 //
 
 import SwiftUI
 
-final class LayoutManager: Triggerable {
-    static let shared = LayoutManager()
+final class ActionManager: Triggerable {
+    static let shared = ActionManager()
 
     private var windowElement: AXUIElement? {
         guard let app = NSWorkspace.shared.frontmostApplication else {
@@ -25,33 +25,7 @@ final class LayoutManager: Triggerable {
 
         return window
     }
-
-    private var screen: NSScreen? {
-        guard
-            let window = windowElement,
-            let positionRaw = window.getAttributeValue(for: .position),
-            CFGetTypeID(positionRaw) == AXValueGetTypeID(),
-            let sizeRaw = window.getAttributeValue(for: .size),
-            CFGetTypeID(sizeRaw) == AXValueGetTypeID()
-        else {
-            return nil
-        }
-
-        var position = CGPoint.zero
-        var size = CGSize.zero
-
-        AXValueGetValue(positionRaw as! AXValue, .cgPoint, &position)
-        AXValueGetValue(sizeRaw as! AXValue, .cgSize, &size)
-
-        let axFrame = CGRect(origin: position, size: size)
-        let windowFrame = flipAXFrameToNSScreenCoordinates(axFrame)
-
-        return NSScreen.screens.max(by: { a, b in
-            a.visibleFrame.intersection(windowFrame).area
-                < b.visibleFrame.intersection(windowFrame).area
-        })
-    }
-
+    
     private var screensUnionFrame: CGRect {
         NSScreen.screens.reduce(CGRect.zero) {
             $0.union($1.frame)
@@ -59,8 +33,8 @@ final class LayoutManager: Triggerable {
     }
 
     private init() {}
-    
-    func trigger(_ value: InsetRect) {
+
+    func trigger(_ value: ActionRect) {
         guard AccessibilityPermissionManager.shared.isPermissionGranted,
             let app = NSWorkspace.shared.frontmostApplication
         else {
@@ -71,15 +45,29 @@ final class LayoutManager: Triggerable {
             apply(value)
         }
     }
-    
-    private func apply(_ insetRect: InsetRect) {
-        guard let windowElement = windowElement, let screen = screen
+
+    private func apply(_ actionRect: ActionRect) {
+        guard
+            let windowElement = windowElement,
+            let positionRaw = windowElement.getAttributeValue(for: .position),
+            CFGetTypeID(positionRaw) == AXValueGetTypeID(),
+            let sizeRaw = windowElement.getAttributeValue(for: .size),
+            CFGetTypeID(sizeRaw) == AXValueGetTypeID()
         else {
             return
         }
+
+        var position = CGPoint.zero
+        var size = CGSize.zero
+
+        AXValueGetValue(positionRaw as! AXValue, .cgPoint, &position)
+        AXValueGetValue(sizeRaw as! AXValue, .cgSize, &size)
+
+        let axFrame = CGRect(origin: position, size: size)
+        let windowFrame = axFrame
         
-        let targetFrame = try! insetRect.evaluate(for: screen.visibleFrame)
-        var finalFrame = flipCGRectToAXCoordinates(targetFrame)
+        let targetFrame = try! actionRect.evaluate(for: windowFrame)
+        var finalFrame = targetFrame
         
         let _ = windowElement.setAttributeValue(
             AXValueCreate(.cgPoint, &finalFrame.origin)!,
@@ -90,7 +78,7 @@ final class LayoutManager: Triggerable {
             for: .size
         )
     }
-
+    
     private func flipAXFrameToNSScreenCoordinates(_ axFrame: CGRect) -> CGRect {
         let unionFrame = screensUnionFrame
 
@@ -99,7 +87,7 @@ final class LayoutManager: Triggerable {
 
         return flipped
     }
-
+    
     private func flipCGRectToAXCoordinates(_ rect: CGRect) -> CGRect {
         let unionFrame = screensUnionFrame
 

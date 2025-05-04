@@ -6,12 +6,24 @@
 //
 
 import Defaults
+import Foundation
 
 struct Sizes {
+    static var `default`: Sizes {
+        return .init(
+            padding: 16,
+            gap: 16,
+            stageManager: 180,
+            peek: 80,
+            step: 16
+        )
+    }
+
     var padding: Int
     var gap: Int
     var stageManager: Int
     var peek: Int
+    var step: Int
 }
 
 extension Sizes: Defaults.Serializable {
@@ -28,33 +40,31 @@ struct SizesBridge: Defaults.Bridge {
         }
 
         return [
-            SizesKey.padding.rawValue: value.padding,
-            SizesKey.gap.rawValue: value.gap,
-            SizesKey.stageManager.rawValue: value.stageManager,
-            SizesKey.peek.rawValue: value.peek,
+            CodingKeys.padding.rawValue: value.padding,
+            CodingKeys.gap.rawValue: value.gap,
+            CodingKeys.stageManager.rawValue: value.stageManager,
+            CodingKeys.peek.rawValue: value.peek,
+            CodingKeys.step.rawValue: value.step,
         ]
     }
 
     func deserialize(_ object: Serializable?) -> Value? {
-        guard
-            let object,
-            let padding = object[SizesKey.padding.rawValue],
-            let gap = object[SizesKey.gap.rawValue],
-            let stageManager = object[SizesKey.stageManager.rawValue],
-            let peek = object[SizesKey.peek.rawValue]
-        else {
+        guard let object else {
             return nil
         }
 
         return Sizes(
-            padding: padding,
-            gap: gap,
-            stageManager: stageManager,
-            peek: peek
+            padding: object[CodingKeys.padding.rawValue]
+                ?? Sizes.default.padding,
+            gap: object[CodingKeys.gap.rawValue] ?? Sizes.default.gap,
+            stageManager: object[CodingKeys.stageManager.rawValue]
+                ?? Sizes.default.stageManager,
+            peek: object[CodingKeys.peek.rawValue] ?? Sizes.default.peek,
+            step: object[CodingKeys.step.rawValue] ?? Sizes.default.step
         )
     }
-}
 
-private enum SizesKey: String {
-    case padding, gap, stageManager, peek
+    enum CodingKeys: String {
+        case padding, gap, stageManager, peek, step
+    }
 }

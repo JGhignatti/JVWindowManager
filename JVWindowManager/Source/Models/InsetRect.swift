@@ -5,42 +5,14 @@
 //  Created by João Ghignatti on 23/04/25.
 //
 
-import Defaults
 import Expression
 import Foundation
 
-struct InsetRect: Codable, Equatable, Hashable {
-    static func constants(for frame: CGRect = .zero) -> [String: Double] {
-        let gap = Double(Defaults[.sizes].gap)
-
-        let consts: [String: Double] = [
-            "width": Double(frame.width),
-            "height": Double(frame.height),
-            "padding": Double(Defaults[.sizes].padding),
-            "gap": gap,
-            "halfGap": gap / 2.0,
-            "stageManager": Double(Defaults[.sizes].stageManager),
-            "peek": Double(Defaults[.sizes].peek),
-        ]
-
-        return consts
-    }
-
+struct InsetRect {
     var top: String
     var bottom: String
     var left: String
     var right: String
-
-    var valid: Bool {
-        let consts = InsetRect.constants()
-        
-        let topValid = (try? eval(top, consts)) != nil
-        let bottomValid = (try? eval(bottom, consts)) != nil
-        let leftValid = (try? eval(left, consts)) != nil
-        let rightValid = (try? eval(right, consts)) != nil
-        
-        return topValid && bottomValid && leftValid && rightValid
-    }
 
     init(_ amount: String) {
         self.init(top: amount, bottom: amount, left: amount, right: amount)
@@ -56,14 +28,36 @@ struct InsetRect: Codable, Equatable, Hashable {
         self.left = left
         self.right = right
     }
+}
+
+extension InsetRect: EvaluatableRect {
+    var valid: Bool {
+        let consts = Self.constants()
+
+        let topValid = (try? eval(top, with: consts)) != nil
+        let bottomValid = (try? eval(bottom, with: consts)) != nil
+        let leftValid = (try? eval(left, with: consts)) != nil
+        let rightValid = (try? eval(right, with: consts)) != nil
+
+        return topValid && bottomValid && leftValid && rightValid
+    }
+
+    static func constants(for frame: CGRect = .zero) -> [String: Double] {
+        ExpressionConstants.all(
+            keeping: [
+                .width, .height, .padding, .gap, .halfGap, .stageManager, .peek,
+            ],
+            frame: frame
+        )
+    }
 
     func evaluate(for frame: CGRect) throws -> CGRect {
-        let consts = InsetRect.constants(for: frame)
+        let consts = Self.constants(for: frame)
 
-        let insetTop = try eval(top, consts)
-        let insetBottom = try eval(bottom, consts)
-        let insetLeft = try eval(left, consts)
-        let insetRight = try eval(right, consts)
+        let insetTop = try eval(top, with: consts)
+        let insetBottom = try eval(bottom, with: consts)
+        let insetLeft = try eval(left, with: consts)
+        let insetRight = try eval(right, with: consts)
 
         return frame.insetBy(
             top: insetTop,
@@ -72,12 +66,6 @@ struct InsetRect: Codable, Equatable, Hashable {
             left: insetLeft,
         )
     }
-
-    private func eval(_ expression: String, _ constants: [String: Double])
-        throws -> CGFloat
-    {
-        let exp = Expression(expression, constants: constants)
-        
-        return CGFloat(try exp.evaluate())
-    }
 }
+
+extension InsetRect: Codable, Equatable, Hashable {}
