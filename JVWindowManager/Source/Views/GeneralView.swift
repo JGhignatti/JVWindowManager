@@ -12,12 +12,11 @@ import SwiftUI
 struct GeneralView: View {
     @Default(.sizes) var sizes: Sizes
 
+    @State private var showAlertIndex: Int?
+
     var body: some View {
         ScrollView {
-            GroupBox(
-                label:
-                    Text("Behaviors").foregroundColor(.secondary)
-            ) {
+            GroupBox {
                 LaunchAtLogin.Toggle {
                     HStack {
                         Text("Launch at login")
@@ -32,12 +31,41 @@ struct GeneralView: View {
 
             GroupBox(
                 label:
-                    Text("Sizes").foregroundColor(.secondary)
+                    Text("Variables").foregroundColor(.secondary)
             ) {
                 VStack {
                     HStack {
-                        Text("Padding")
-                            .frame(width: 120, alignment: .leading)
+                        HStack {
+                            Text("Padding")
+
+                            Button {
+                                withAnimation {
+                                    showAlertIndex = 0
+                                }
+                            } label: {
+                                Image(systemName: "questionmark.circle")
+                                    .font(.title2)
+                                    .foregroundStyle(.secondary)
+                            }
+                            .buttonStyle(.plain)
+                            .popover(
+                                isPresented: Binding(
+                                    get: { showAlertIndex == 0 },
+                                    set: { newValue in
+                                        showAlertIndex = newValue ? 0 : nil
+                                    }
+                                ),
+                                arrowEdge: .bottom
+                            ) {
+                                VStack {
+                                    Text(
+                                        "The space to frame the window in the screen"
+                                    )
+                                }
+                                .padding()
+                            }
+                        }
+                        .frame(width: 120, alignment: .leading)
 
                         Slider(
                             value: Binding<Double>(
@@ -59,8 +87,38 @@ struct GeneralView: View {
                     Divider()
 
                     HStack {
-                        Text("Gap")
-                            .frame(width: 120, alignment: .leading)
+                        HStack {
+                            Text("Gap")
+
+                            Button {
+                                withAnimation {
+                                    showAlertIndex = 1
+                                }
+                            } label: {
+                                Image(systemName: "questionmark.circle")
+                                    .font(.title2)
+                                    .foregroundStyle(.secondary)
+                            }
+                            .buttonStyle(.plain)
+                            .popover(
+                                isPresented: Binding(
+                                    get: { showAlertIndex == 1 },
+                                    set: { newValue in
+                                        showAlertIndex = newValue ? 1 : nil
+                                    }
+                                ),
+                                arrowEdge: .bottom
+                            ) {
+                                VStack {
+                                    Text(
+                                        "The space between windows"
+                                    )
+                                }
+                                .padding()
+                            }
+                        }
+                        .frame(width: 120, alignment: .leading)
+
                         Slider(
                             value: Binding<Double>(
                                 get: {
@@ -81,8 +139,38 @@ struct GeneralView: View {
                     Divider()
 
                     HStack {
-                        Text("Stage manager")
-                            .frame(width: 120, alignment: .leading)
+                        HStack {
+                            Text("Stage manager")
+
+                            Button {
+                                withAnimation {
+                                    showAlertIndex = 2
+                                }
+                            } label: {
+                                Image(systemName: "questionmark.circle")
+                                    .font(.title2)
+                                    .foregroundStyle(.secondary)
+                            }
+                            .buttonStyle(.plain)
+                            .popover(
+                                isPresented: Binding(
+                                    get: { showAlertIndex == 2 },
+                                    set: { newValue in
+                                        showAlertIndex = newValue ? 2 : nil
+                                    }
+                                ),
+                                arrowEdge: .bottom
+                            ) {
+                                VStack {
+                                    Text(
+                                        "The left margin available for stage manager"
+                                    )
+                                }
+                                .padding()
+                            }
+                        }
+                        .frame(width: 120, alignment: .leading)
+
                         HStack {
                             Slider(
                                 value: Binding<Double>(
@@ -105,8 +193,38 @@ struct GeneralView: View {
                     Divider()
 
                     HStack {
-                        Text("Peek")
-                            .frame(width: 120, alignment: .leading)
+                        HStack {
+                            Text("Peek")
+                            
+                            Button {
+                                withAnimation {
+                                    showAlertIndex = 3
+                                }
+                            } label: {
+                                Image(systemName: "questionmark.circle")
+                                    .font(.title2)
+                                    .foregroundStyle(.secondary)
+                            }
+                            .buttonStyle(.plain)
+                            .popover(
+                                isPresented: Binding(
+                                    get: { showAlertIndex == 3 },
+                                    set: { newValue in
+                                        showAlertIndex = newValue ? 3 : nil
+                                    }
+                                ),
+                                arrowEdge: .bottom
+                            ) {
+                                VStack {
+                                    Text(
+                                        "The space left to peek the window behind"
+                                    )
+                                }
+                                .padding()
+                            }
+                        }
+                        .frame(width: 120, alignment: .leading)
+                        
                         Slider(
                             value: Binding<Double>(
                                 get: {
@@ -123,12 +241,42 @@ struct GeneralView: View {
                             .frame(width: 40, alignment: .trailing)
                     }
                     .padding(.vertical, 4)
-                    
+
                     Divider()
 
                     HStack {
-                        Text("Step")
-                            .frame(width: 120, alignment: .leading)
+                        HStack {
+                            Text("Step")
+
+                            Button {
+                                withAnimation {
+                                    showAlertIndex = 4
+                                }
+                            } label: {
+                                Image(systemName: "questionmark.circle")
+                                    .font(.title2)
+                                    .foregroundStyle(.secondary)
+                            }
+                            .buttonStyle(.plain)
+                            .popover(
+                                isPresented: Binding(
+                                    get: { showAlertIndex == 4 },
+                                    set: { newValue in
+                                        showAlertIndex = newValue ? 4 : nil
+                                    }
+                                ),
+                                arrowEdge: .bottom
+                            ) {
+                                VStack {
+                                    Text(
+                                        "A configurable size that can be used as a step size for repeating actions"
+                                    )
+                                }
+                                .padding()
+                            }
+                        }
+                        .frame(width: 120, alignment: .leading)
+
                         Slider(
                             value: Binding<Double>(
                                 get: {
