@@ -14,11 +14,19 @@ struct AboutView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 120, height: 120)
-            
+
             Text("JV Window Manager")
                 .font(.largeTitle)
             
-            Spacer(minLength: 16)
+            Spacer(minLength: 8)
+
+            Text("Highly customizable shortcut-based window manager for macOS")
+            
+            Spacer(minLength: 32)
+            
+            Divider()
+
+            Spacer(minLength: 32)
 
             Text(
                 "Find more documentation and report issues in the project's Github repository:"
@@ -30,7 +38,11 @@ struct AboutView: View {
                     string: "https://github.com/JGhignatti/JVWindowManager"
                 )!
             )
-            
+
+            Text("Copyright © 2025 João Ghignatti. All rights reserved.")
+                .font(.caption)
+                .foregroundStyle(.tertiary)
+
             Spacer(minLength: 32)
 
             HStack {
@@ -46,14 +58,6 @@ struct AboutView: View {
                         string: "https://github.com/JGhignatti"
                     )!
                 )
-            }
-
-            HStack {
-                Spacer()
-
-                Text("Copyright © 2025 João Ghignatti. All rights reserved.")
-                    .font(.caption)
-                    .foregroundStyle(.tertiary)
             }
         }
         .contentMargins(20, for: .scrollContent)
