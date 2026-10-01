@@ -11,11 +11,12 @@
 		DB716E422DB95E0A007BDB6D /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = DB716E412DB95E0A007BDB6D /* KeyboardShortcuts */; };
 		DB716E4C2DB9702D007BDB6D /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = DB716E4B2DB9702D007BDB6D /* LaunchAtLogin */; };
 		DB716E4F2DB977AD007BDB6D /* Defaults in Frameworks */ = {isa = PBXBuildFile; productRef = DB716E4E2DB977AD007BDB6D /* Defaults */; };
-		DB716E512DB977AD007BDB6D /* DefaultsMacros in Frameworks */ = {isa = PBXBuildFile; productRef = DB716E502DB977AD007BDB6D /* DefaultsMacros */; };
-		DBB8231E2DBC9E5C000715A8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DBB8231D2DBC9E5C000715A8 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB307EA4306D873700E42924 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		DB307EA5306D873700E42924 /* RELEASING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = RELEASING.md; sourceTree = "<group>"; };
+		DB307EA6306D873700E42924 /* release.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = release.sh; sourceTree = "<group>"; };
 		DB633B862DAEF35B00CE6940 /* JVWindowManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JVWindowManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBB8231D2DBC9E5C000715A8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -35,7 +36,6 @@
 			files = (
 				DB2DEE482DB5EB4200BB06D7 /* Expression in Frameworks */,
 				DB716E4C2DB9702D007BDB6D /* LaunchAtLogin in Frameworks */,
-				DB716E512DB977AD007BDB6D /* DefaultsMacros in Frameworks */,
 				DB716E422DB95E0A007BDB6D /* KeyboardShortcuts in Frameworks */,
 				DB716E4F2DB977AD007BDB6D /* Defaults in Frameworks */,
 			);
@@ -44,9 +44,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DB307EA7306D873700E42924 /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				DB307EA6306D873700E42924 /* release.sh */,
+			);
+			path = scripts;
+			sourceTree = "<group>";
+		};
 		DB633B7D2DAEF35B00CE6940 = {
 			isa = PBXGroup;
 			children = (
+				DB307EA4306D873700E42924 /* LICENSE */,
+				DB307EA5306D873700E42924 /* RELEASING.md */,
+				DB307EA7306D873700E42924 /* scripts */,
 				DBB8231D2DBC9E5C000715A8 /* README.md */,
 				DB633B882DAEF35B00CE6940 /* JVWindowManager */,
 				DB633B872DAEF35B00CE6940 /* Products */,
@@ -85,7 +96,6 @@
 				DB716E412DB95E0A007BDB6D /* KeyboardShortcuts */,
 				DB716E4B2DB9702D007BDB6D /* LaunchAtLogin */,
 				DB716E4E2DB977AD007BDB6D /* Defaults */,
-				DB716E502DB977AD007BDB6D /* DefaultsMacros */,
 			);
 			productName = JVWindowManager;
 			productReference = DB633B862DAEF35B00CE6940 /* JVWindowManager.app */;
@@ -136,7 +146,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBB8231E2DBC9E5C000715A8 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,7 +217,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.4;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -267,7 +276,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.4;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -285,6 +294,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -296,13 +306,13 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jghignatti.JVWindowManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -316,6 +326,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -327,13 +338,13 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jghignatti.JVWindowManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};
@@ -374,7 +385,7 @@
 			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.3.0;
+				minimumVersion = 3.1.0;
 			};
 		};
 		DB716E4A2DB9702D007BDB6D /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
@@ -390,7 +401,7 @@
 			repositoryURL = "https://github.com/sindresorhus/Defaults";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.2;
+				minimumVersion = 9.0.9;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -415,11 +426,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DB716E4D2DB977AD007BDB6D /* XCRemoteSwiftPackageReference "Defaults" */;
 			productName = Defaults;
-		};
-		DB716E502DB977AD007BDB6D /* DefaultsMacros */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB716E4D2DB977AD007BDB6D /* XCRemoteSwiftPackageReference "Defaults" */;
-			productName = DefaultsMacros;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

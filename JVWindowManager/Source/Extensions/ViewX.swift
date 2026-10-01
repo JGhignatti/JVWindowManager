@@ -7,11 +7,7 @@
 
 import SwiftUI
 
-extension View {    
-    func accessibilityPermissionPrompt() -> some View {
-        self.modifier(AccessibilityPermissionPromptModifier())
-    }
-
+extension View {
     func inlineCode(_ textStyle: Font.TextStyle = .body) -> some View {
         self.modifier(InlineCodeModifier(textStyle: textStyle))
     }

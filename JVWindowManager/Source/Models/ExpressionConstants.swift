@@ -10,7 +10,8 @@ import Foundation
 
 enum ExpressionConstants {
     enum Key: String, CaseIterable {
-        case width, height, originX, originY, padding, gap, halfGap, stageManager, peek, step
+        case width, height, originX, originY, padding, gap, halfGap,
+            stageManager, step
     }
 
     static func width(for frame: CGRect = .zero) -> Double {
@@ -20,37 +21,33 @@ enum ExpressionConstants {
     static func height(for frame: CGRect = .zero) -> Double {
         frame.height
     }
-    
+
     static func originX(for frame: CGRect = .zero) -> Double {
         frame.origin.x
     }
-    
+
     static func originY(for frame: CGRect = .zero) -> Double {
         frame.origin.y
     }
 
     static var padding: Double {
-        Double(Defaults[.sizes].padding)
+        Double(Defaults[.variables].padding)
     }
 
     static var gap: Double {
-        Double(Defaults[.sizes].gap)
+        Double(Defaults[.variables].gap)
     }
-    
+
     static var halfGap: Double {
         gap / 2
     }
 
     static var stageManager: Double {
-        Double(Defaults[.sizes].stageManager)
-    }
-
-    static var peek: Double {
-        Double(Defaults[.sizes].peek)
+        Double(Defaults[.variables].stageManager)
     }
 
     static var step: Double {
-        Double(Defaults[.sizes].step)
+        Double(Defaults[.variables].step)
     }
 
     static func all(keeping keepKeys: Set<Key> = [], frame: CGRect = .zero)
@@ -83,8 +80,6 @@ enum ExpressionConstants {
             return halfGap
         case .stageManager:
             return stageManager
-        case .peek:
-            return peek
         case .step:
             return step
         }

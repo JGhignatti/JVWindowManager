@@ -13,28 +13,42 @@ struct ActionRect {
     var height: String
     var x: String
     var y: String
+
+    private static var validationConstants: [String: Double] { constants() }
+    var widthValid: Bool {
+        return (try? eval(width, with: Self.validationConstants)) != nil
+    }
+    var heightValid: Bool {
+        return (try? eval(height, with: Self.validationConstants)) != nil
+    }
+    var xValid: Bool {
+        return (try? eval(x, with: Self.validationConstants)) != nil
+    }
+    var yValid: Bool {
+        return (try? eval(y, with: Self.validationConstants)) != nil
+    }
+
+    init(width: String, height: String, x: String, y: String) {
+        self.width = width
+        self.height = height
+        self.x = x
+        self.y = y
+    }
 }
 
 extension ActionRect: EvaluatableRect {
-    var valid: Bool {
-        let consts = Self.constants()
-
-        let widthValid = (try? eval(width, with: consts)) != nil
-        let heightValid = (try? eval(height, with: consts)) != nil
-        let xValid = (try? eval(x, with: consts)) != nil
-        let yValid = (try? eval(y, with: consts)) != nil
-
-        return widthValid && heightValid && xValid && yValid
-    }
-
     static func constants(for frame: CGRect = .zero) -> [String: Double] {
         ExpressionConstants.all(
             keeping: [
                 .width, .height, .originX, .originY, .padding, .gap, .halfGap,
-                .stageManager, .peek, .step,
+                .stageManager, .step,
             ],
             frame: frame
         )
+    }
+
+    var valid: Bool {
+        widthValid && heightValid && xValid && yValid
     }
 
     func evaluate(for frame: CGRect) throws -> CGRect {

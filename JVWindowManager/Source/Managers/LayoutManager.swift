@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-final class LayoutManager: Triggerable {
+@MainActor
+final class LayoutManager {
     static let shared = LayoutManager()
 
     private var windowElement: AXUIElement? {
@@ -21,7 +22,7 @@ final class LayoutManager: Triggerable {
             return nil
         }
 
-        let window = unsafeBitCast(rawWindow, to: AXUIElement.self)
+        let window = unsafeDowncast(rawWindow, to: AXUIElement.self)
 
         return window
     }
@@ -61,9 +62,12 @@ final class LayoutManager: Triggerable {
     private init() {}
     
     func trigger(_ value: InsetRect) {
-        guard AccessibilityPermissionManager.shared.isPermissionGranted,
-            let app = NSWorkspace.shared.frontmostApplication
-        else {
+        guard AccessibilityPermissionManager.shared.isPermissionGranted else {
+            AccessibilityPermissionManager.shared.requestPermission()
+            return
+        }
+
+        guard let app = NSWorkspace.shared.frontmostApplication else {
             return
         }
 
@@ -105,6 +109,7 @@ final class LayoutManager: Triggerable {
 
         var flipped = rect
         flipped.origin.y = unionFrame.maxY - rect.origin.y - rect.height
+
         return flipped
     }
 }

@@ -6,24 +6,25 @@
 //
 
 import Defaults
+import Foundation
 
 extension Defaults.Keys {
     static let variables = Defaults.Key<Variables>(
         "_variables",
-        default: Variables.default
+        default: .default
     )
 
+    static let hasLoadedDefaultLayouts = Defaults.Key<Bool>(
+        "_hasLoadedDefaultLayouts",
+        default: false
+    )
+    
     static let layouts = Defaults.Key<[Layout]>("_layouts", default: [])
-
-    static let sizes = Defaults.Key<Sizes>("sizes", default: Sizes.default)
-
-    static let customLayouts = Defaults.Key<[CustomLayout]>(
-        "customLayouts",
-        default: []
+    
+    static let hasLoadedDefaultActions = Defaults.Key<Bool>(
+        "_hasLoadedDefaultActions",
+        default: false
     )
-
-    static let customActions = Defaults.Key<[CustomAction]>(
-        "customActions",
-        default: []
-    )
+    
+    static let actions = Defaults.Key<[Action]>("_actions", default: [])
 }

@@ -13,6 +13,20 @@ struct InsetRect {
     var bottom: String
     var left: String
     var right: String
+    
+    private static var validationConstants: [String: Double] { constants() }
+    var topValid: Bool {
+        return (try? eval(top, with: Self.validationConstants)) != nil
+    }
+    var bottomValid: Bool {
+        return (try? eval(bottom, with: Self.validationConstants)) != nil
+    }
+    var leftValid: Bool {
+        return (try? eval(left, with: Self.validationConstants)) != nil
+    }
+    var rightValid: Bool {
+        return (try? eval(right, with: Self.validationConstants)) != nil
+    }
 
     init(_ amount: String) {
         self.init(top: amount, bottom: amount, left: amount, right: amount)
@@ -31,24 +45,17 @@ struct InsetRect {
 }
 
 extension InsetRect: EvaluatableRect {
-    var valid: Bool {
-        let consts = Self.constants()
-
-        let topValid = (try? eval(top, with: consts)) != nil
-        let bottomValid = (try? eval(bottom, with: consts)) != nil
-        let leftValid = (try? eval(left, with: consts)) != nil
-        let rightValid = (try? eval(right, with: consts)) != nil
-
-        return topValid && bottomValid && leftValid && rightValid
-    }
-
     static func constants(for frame: CGRect = .zero) -> [String: Double] {
         ExpressionConstants.all(
             keeping: [
-                .width, .height, .padding, .gap, .halfGap, .stageManager, .peek,
+                .width, .height, .padding, .gap, .halfGap, .stageManager, .step
             ],
             frame: frame
         )
+    }
+
+    var valid: Bool {
+        topValid && bottomValid && leftValid && rightValid
     }
 
     func evaluate(for frame: CGRect) throws -> CGRect {

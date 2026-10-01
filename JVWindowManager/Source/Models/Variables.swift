@@ -9,7 +9,7 @@ import Defaults
 import Foundation
 
 struct Variables {
-    static var `default`: Variables = .init(
+    static let `default`: Variables = .init(
         padding: 16,
         gap: 16,
         stageManager: 180,
