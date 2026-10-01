@@ -74,10 +74,13 @@ npx create-dmg "$APP_PATH" "$BUILD_DIR" --overwrite
 
 # Rename to match the asset name used on every past release
 # (JVWindowManager_1.0.0.dmg, JVWindowManager_2.0.0.dmg) — underscore-separated,
-# padded to the tag, not create-dmg's default "JVWindowManager 2.0.dmg".
+# padded to the tag. create-dmg names its output after the app's
+# CFBundleDisplayName ("JV Window Manager X.Y.dmg"), not the target name, so
+# find whatever .dmg it just produced instead of guessing the filename.
 ASSET_NAME="JVWindowManager_${TAG}.dmg"
 ASSET_PATH="$BUILD_DIR/$ASSET_NAME"
-mv "$BUILD_DIR/JVWindowManager $VERSION.dmg" "$ASSET_PATH"
+CREATED_DMG=$(find "$BUILD_DIR" -maxdepth 1 -name '*.dmg' -print -quit)
+mv "$CREATED_DMG" "$ASSET_PATH"
 echo "==> Done: $ASSET_PATH"
 
 REPO_SLUG=$(git remote get-url origin | sed -E 's#.*[:/]([^/]+/[^/]+)\.git#\1#')
