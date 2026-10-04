@@ -24,7 +24,7 @@ JV Window Manager lives in the menu bar and moves or resizes the frontmost windo
 
 ## Features
 
-- **Layouts** — snap the frontmost window into position relative to the visible frame of the screen it's on.
+- **Layouts** - snap the frontmost window into position relative to the visible frame of the screen it's on.
 - **Actions** — grow, shrink, or nudge the frontmost window relative to its own current frame. Hold the shortcut to repeat.
 - **Expression-based configuration** — every position and size is a small math expression (`width / 2 + halfGap`), with a live preview, an evaluated result next to each field, and variable chips you can click to insert.
 
@@ -32,17 +32,13 @@ JV Window Manager lives in the menu bar and moves or resizes the frontmost windo
 
 1. Download the latest build from the [Releases page](https://github.com/JGhignatti/JVWindowManager/releases/latest).
 2. Move `JVWindowManager.app` to `/Applications`.
-3. Launch it and grant **Accessibility** access when prompted — shortcuts won't move or resize windows until it's granted.
+3. Launch it and grant **Accessibility** access when prompted (shortcuts won't move or resize windows until it's granted).
 
 Requires macOS 14 Sonoma or later.
 
-## Installation
-
-Check the step-by-step in the latest [release](https://github.com/JGhignatti/JVWindowManager/releases).
-
 ## Layouts
 
-Layouts define the window's new position and size relative to the **screen's visible frame** — the screen with the largest overlap with the window is used. Each side (top, bottom, left, right) is an inset expression: the distance from that edge of the screen to the new edge of the window.
+Layouts define the window's new position and size relative to the **screen's visible frame**. Each side (top, bottom, left, right) is an inset expression: the distance from that edge of the screen to the new edge of the window.
 
 ### Default layouts
 
@@ -57,9 +53,7 @@ Layouts define the window's new position and size relative to the **screen's vis
 
 ### Custom layouts
 
-Create your own from the **Layouts** tab: give it a name and a shortcut, then set the Top, Bottom, Left and Right expressions. The preview above the fields highlights whichever edge you're currently editing. You can start from a preset instead of writing expressions from scratch.
-
-For example, a "Left two-thirds" layout would set `right` to `width / 3 + halfGap`, leaving the other three sides at `padding`.
+Create your own from the **Layouts** tab: give it a name and a shortcut, then set the Top, Bottom, Left and Right expressions. You can start from a preset instead of writing expressions from scratch.
 
 <p align="center"><img src="docs/images/layouts-list.png" width="700"></p>
 
@@ -76,6 +70,8 @@ For example, a "Left two-thirds" layout would set `right` to `width / 3 + halfGa
 | `halfGap`      | Half the configured gap size             |
 | `stageManager` | The configured stage manager size        |
 | `step`         | The configured step size                 |
+
+Expressions support `+`, `-`, `*`, `/` and parentheses.
 
 ## Actions
 
@@ -98,10 +94,7 @@ While layouts are relative to the screen, actions are relative to the window's *
 
 ### Custom actions
 
-Create your own from the **Actions** tab, the same way as layouts: name, shortcut, and Width,
-Height, X and Y expressions, with presets to start from.
-
-For example, "Move right" sets `x` to `originX + step`, leaving width, height and `y` unchanged.
+Create your own from the **Actions** tab, the same way as layouts: name, shortcut, and Width, Height, X and Y expressions, with presets to start from.
 
 <p align="center"><img src="docs/images/action-advanced.png" width="700"></p>
 
@@ -146,8 +139,6 @@ Actions can be configured with how far they're allowed to push a window off-scre
 | Gap           | The space between windows                                                                              | `16`          | `0...50`  |
 | Stage manager | The left margin for the stage manager, between the edge of the screen and the window's available space | `180`         | `0...250` |
 | Step          | A configurable size that can be used as a step size for repeating actions                              | `8`           | `0...200` |
-
-Padding, gap, stage manager and step can each be reset to their defaults individually from the **General** tab, along with separate options to restore the default layouts and actions.
 
 <p align="center"><img src="docs/images/general-variables.png" width="700"></p>
 
