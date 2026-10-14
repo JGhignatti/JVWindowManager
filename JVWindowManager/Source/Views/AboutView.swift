@@ -76,6 +76,9 @@ struct AboutView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.background)
         .ignoresSafeArea(edges: .top)
+        .navigationTitle("About")
+        .navigationSubtitle("Version and credits")
+        .toolbarPlaceholder()
         .toolbarBackground(.hidden, for: .windowToolbar)
     }
 }

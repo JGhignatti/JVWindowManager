@@ -226,6 +226,8 @@ struct GeneralView: View {
         }
         .formStyle(.grouped)
         .navigationTitle("General")
+        .navigationSubtitle("Startup, variables and reset")
+        .toolbarPlaceholder()
         .animation(.default, value: accessibilityManager.isPermissionGranted)
     }
 }
