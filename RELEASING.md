@@ -18,8 +18,8 @@ The checked-in Xcode project has no `DEVELOPMENT_TEAM` set, so anyone can clone 
 
 In Xcode, select the **JVWindowManager** target → **General** tab → **Identity**:
 
-- **Version** (`MARKETING_VERSION`) — the user-facing version, e.g. `3.0`. This is what shows up in the About window and the README badge.
-- **Build** (`CURRENT_PROJECT_VERSION`) — an internal build counter. It has stayed at `1` since the project started, so bumping it is optional — only do it if you want each build to have a unique build number.
+- **Version** (`MARKETING_VERSION`) — the user-facing version, `X.Y.Z` (e.g. `3.0.1`). This is what shows up in the About window and the README badge, and it becomes the release tag as-is.
+- **Build** (`CURRENT_PROJECT_VERSION`) — an internal build counter. Increment it by one on every release and never reset it (`3.0.1` was build `2`).
 
 Editing the **Version** field in the General tab updates it for both the Debug and Release configurations in `project.pbxproj` at once. Do this in Xcode, not by hand — editing `project.pbxproj` outside Xcode while it's open risks corrupting the project.
 
@@ -27,7 +27,7 @@ Commit the bump:
 
 ```
 git add JVWindowManager.xcodeproj/project.pbxproj
-git commit -m "chore: bump version to 3.0"
+git commit -m "chore: bump version to 3.0.1"
 ```
 
 ## 2. Build the release and the .dmg
